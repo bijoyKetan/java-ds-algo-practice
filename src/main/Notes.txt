@@ -1,0 +1,8 @@
+The main operations to perform:
+1. Create the data structure
+2. Add items to the DS
+3. Access and return items from the DS
+4. Iterate through all the items of the DS and print those
+5. Remove all items from the DS
+6. Check if the DS is empty
+7. Copy the DS
