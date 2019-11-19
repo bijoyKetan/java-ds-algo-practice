@@ -40,16 +40,11 @@ public class Hamburger {
 
     @Override
     public String toString() {
-        return "Hamburger{" +
-                "itemCount=" + itemCount +
-                ", breadRollType='" + breadRollType + '\'' +
-                ", meatType='" + meatType + '\'' +
-                ", basePrice=" + basePrice +
-                ", burgerName='" + burgerName + '\'' +
-                ", additionalItems=" + additionalItems +
-                ", additionalItemPrice=" + additionalItemPrice +
-                ", finalPrice=" + finalPrice +
-                '}';
+        return "Name of burger is -> " + getBurgerName() +
+                "\nBase price -> " + getBasePrice() +
+                "\nAdditional Items -> " + getAdditionalItems() +
+                "\nAdditional Price -> " + getAdditionalItemPrice() +
+                "\nFinal Price -> " + getFinalPrice();
     }
 
     public int getItemCount() {

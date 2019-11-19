@@ -1,0 +1,13 @@
+Overloading
+    - when a method with same name is used multiple times in same class
+    - number, type and sequence of parameters can vary
+    - return type CANNOT vary
+    - static polymorphism/compilation time
+
+Overriding
+    - when a method in subclass has same name as that in parent class
+    - method signature must match exactly, i.e. type, number and sequence of arguments
+    - private, static and final methods cannot be overridden
+    - static method in a subclass may have the same name as that in parent, in which case these are independent-unrelated methods.
+    - dynamic polymorphism (runtime)
+

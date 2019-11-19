@@ -1,5 +1,6 @@
 package oop.billsBurgers;
 
+
 public class Main {
 
     public static void main(String[] args) throws Exception {
@@ -10,15 +11,14 @@ public class Main {
         sampleHamburger.addItemToBurger("Lettuce");
 
 
-        double sampleHamburgerPrice = sampleHamburger.getFinalPrice();
-        System.out.println("The final price of " + sampleHamburger.getBurgerName() + " is -> " + sampleHamburgerPrice);
-        System.out.println(sampleHamburger);
-
+        System.out.println(sampleHamburger.toString() + "\n");
 
         HealthyBurger sampleHealthyBurger = new HealthyBurger("Beef", 7,"HealthGuru");
         sampleHealthyBurger.addItemToBurger("Lettuce");
         sampleHealthyBurger.addItemToBurger("Carrot");
         sampleHealthyBurger.addItemToBurger("Onion");
-        System.out.println("\nThe final price of this " + sampleHealthyBurger.getBurgerName() + " is -> " + sampleHealthyBurger.getFinalPrice());
+        System.out.println(sampleHealthyBurger.toString());
+
+
     }
 }
