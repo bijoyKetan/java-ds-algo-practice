@@ -16,6 +16,7 @@ package core;
     toLowerCase(), toUpperCase() -> a new String with all lowercase or uppercase letters
     String.valueOf(number) -> converts the number (int, float, double etc.) to string
     Integer.valueOf(String) -> converts the string to int. Could also be Double.valueOf(String)
+    String str = 1 + ""; -> Number + "" -> String.
      */
 
 public class StringCore {
@@ -49,6 +50,25 @@ public class StringCore {
         //Substring - last three characters
         String mySubStr = myString.substring(myString.length() - 3, myString.length());
         System.out.println(mySubStr);
+
+
+        //Reversing a string
+        String s = "Hello world!";
+        char[] stringArray = s.toCharArray();
+        char[] resultArray = new char[stringArray.length];
+        for (int i = stringArray.length-1; i >= 0; i--){
+            resultArray[stringArray.length-1-i] = stringArray[i];
+        }
+        System.out.println(new String(resultArray));
+
+        //reversing string - approach 2- with constant space
+        for (int i = 0; i < stringArray.length / 2 ; i++){
+            int j = stringArray.length-1-i;
+            char temp = stringArray[i];
+            stringArray[i] = stringArray[j];
+            stringArray[j] = temp;
+        }
+        System.out.println(new String(stringArray));
 
     }
 }
