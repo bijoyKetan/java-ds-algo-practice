@@ -1,4 +1,4 @@
-package ds_algo.string;
+package ds_algo.array;
 
 import org.junit.jupiter.api.Test;
 
