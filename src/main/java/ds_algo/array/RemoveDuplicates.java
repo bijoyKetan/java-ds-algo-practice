@@ -1,4 +1,4 @@
-package leetcode.array;
+package ds_algo.array;
 
 public class RemoveDuplicates {
     public static int removeDuplicates(int[] nums) {

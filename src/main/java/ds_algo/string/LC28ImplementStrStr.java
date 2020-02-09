@@ -1,4 +1,4 @@
-package leetcode.string;
+package ds_algo.string;
 
 
 import org.junit.jupiter.api.Test;

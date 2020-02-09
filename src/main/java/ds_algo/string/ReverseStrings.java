@@ -1,4 +1,4 @@
-package leetcode.string;
+package ds_algo.string;
 
 public class ReverseStrings {
     public static void main(String[] args) {
