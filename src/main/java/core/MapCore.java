@@ -35,8 +35,5 @@ public class MapCore {
             System.out.println("Entry: " + count + " " + myIterator.next());
             count++;
         }
-
-
     }
-
 }
