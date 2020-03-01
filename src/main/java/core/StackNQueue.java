@@ -29,6 +29,5 @@ public class StackNQueue {
         System.out.println("stack: " + stack + "\n");
         System.out.println("TopElement: " + topElement + "\n");
         System.out.println("Stack size: " + stackSize + "\n");
-
     }
 }
