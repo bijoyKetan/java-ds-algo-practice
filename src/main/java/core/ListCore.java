@@ -37,8 +37,6 @@ public class ListCore {
 
         //To make the above list mutable
 
-
-
         //Access first and last item
         String firstElement = myList.get(0);
         String lastElement = myList.get(myList.size() - 1);
@@ -61,11 +59,5 @@ public class ListCore {
         //boolean isEmp = myList.isEmpty();
         System.out.println(myList.isEmpty());
 
-
-
-
-
-
     }
-
 }
