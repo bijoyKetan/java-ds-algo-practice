@@ -1,8 +1,6 @@
 package ds_algo.stacks_queues;
 
 
-import jdk.internal.module.Checks;
-
 class LC622DesignCircularQueue {
 
     //Initialize your data structure here. Set the size of the queue to be k.
