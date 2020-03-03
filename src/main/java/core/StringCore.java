@@ -1,8 +1,7 @@
 package core;
 
-    /*
+    /**
     Common String methods:
-
     charAt(i) -> the character in this String at a given index
     contains(str) -> true if this String contains the other's characters inside it
     endsWith(str) -> true if this String ends with the other's characters
