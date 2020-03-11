@@ -1,7 +1,4 @@
-package oop.billsBurgers;
-
-import java.util.ArrayList;
-import java.util.List;
+package misc_topics.oop;
 
 
 public final class HealthyBurger extends Hamburger {

@@ -1,4 +1,4 @@
-package oop.billsBurgers;
+package misc_topics.oop;
 
 import java.util.ArrayList;
 import java.util.List;
