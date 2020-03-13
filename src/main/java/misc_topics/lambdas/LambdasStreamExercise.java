@@ -45,15 +45,5 @@ public class LambdasStreamExercise {
                 System.out.println(p);
             }
         });
-
-        LambdaFunc fn = (a, b) -> a + b;
-        System.out.println("Lambda Implemented: " + fn.print(2, 3));
-
     }
-
-}
-
-@FunctionalInterface
-interface LambdaFunc {
-    int print(int a, int b);
 }
