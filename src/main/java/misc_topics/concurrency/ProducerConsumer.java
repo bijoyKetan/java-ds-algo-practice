@@ -1,23 +1,21 @@
 package misc_topics.concurrency;
 
 import java.util.*;
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ProducerConsumer {
     public static void main(String[] args) {
         Buffer sharedBuffer = new Buffer(Arrays.asList(1, 2));
         ReentrantLock bufferLock = new ReentrantLock();
+        Condition bufferNotEmpty = bufferLock.newCondition();
+        Condition bufferNotFull = bufferLock.newCondition();
 
-        MyProducer p1 = new MyProducer(ThreadColor.ANSI_CYAN, sharedBuffer, bufferLock);
-//        MyProducer p2 = new MyProducer(ThreadColor.ANSI_CYAN, sharedBuffer, bufferLock);
-        MyConsumer c1 = new MyConsumer(ThreadColor.ANSI_RED, sharedBuffer, bufferLock);
-//        MyConsumer c2 = new MyConsumer(ThreadColor.ANSI_RED, sharedBuffer, bufferLock);
-
+        MyProducer p1 = new MyProducer(ThreadColor.ANSI_CYAN, sharedBuffer, 2, bufferLock, bufferNotEmpty, bufferNotFull);
+        MyConsumer c1 = new MyConsumer(ThreadColor.ANSI_RED, sharedBuffer, bufferLock, bufferNotEmpty, bufferNotFull);
 
         new Thread(p1).start();
-//        new Thread(p2).start();
         new Thread(c1).start();
-//        new Thread(c2).start();
     }
 }
 
@@ -30,11 +28,17 @@ class MyProducer implements Runnable {
     private final Buffer buffer;
     int startingPoint ;
     private final ReentrantLock bufferLock;
+    private Condition bufferNotEmpty;
+    private Condition bufferNotFull;
 
-    public MyProducer(String color, Buffer buffer, ReentrantLock bufferLock) {
+
+    public MyProducer(String color, Buffer buffer, int startingPoint, ReentrantLock bufferLock, Condition bufferNotEmpty, Condition bufferNotFull) {
         this.color = color;
         this.buffer = buffer;
+        this.startingPoint = startingPoint;
         this.bufferLock = bufferLock;
+        this.bufferNotEmpty = bufferNotEmpty;
+        this.bufferNotFull = bufferNotFull;
     }
 
     @Override
@@ -42,17 +46,27 @@ class MyProducer implements Runnable {
         startingPoint = 2;
         bufferLock.lock();
         try {
+            while (buffer.isFull()){
+                try {
+                    System.out.println("Buffer is full. Producer is waiting...");
+                    bufferNotEmpty.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             while (!buffer.isFull()) {
                 try {
                     buffer.addItemToBuffer(startingPoint++);
                     System.out.println(color + "Producer " + Thread.currentThread().getName() + " added: " + startingPoint + "\n------------------------------\n");
+                    bufferNotFull.signalAll();
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
 
-        } finally {
+        }
+        finally {
             System.out.println("The buffer is full so producer cannot add....");
             bufferLock.unlock();
         }
@@ -67,21 +81,34 @@ class MyConsumer implements Runnable {
     private String color;
     private Buffer buffer;
     private ReentrantLock bufferLock;
+    private Condition bufferNotEmpty;
+    private Condition bufferNotFull;
 
-    public MyConsumer(String color, Buffer buffer, ReentrantLock bufferLock) {
+    public MyConsumer(String color, Buffer buffer, ReentrantLock bufferLock, Condition bufferNotEmpty, Condition bufferNotFull) {
         this.color = color;
         this.buffer = buffer;
         this.bufferLock = bufferLock;
+        this.bufferNotEmpty = bufferNotEmpty;
+        this.bufferNotFull = bufferNotFull;
     }
 
     @Override
     public void run() {
         bufferLock.lock();
         try {
+            while (buffer.isEmpty()){
+                try {
+                    System.out.println("Buffer is empty. Consumer is waiting....");
+                    bufferNotFull.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             while (!buffer.isEmpty()) {
                 try {
                     System.out.println(color + "Consumer " + Thread.currentThread().getName() + " consumed: " + buffer.removeItemFromBuffer() + "\n------------------------------\n");
                     Thread.sleep(500);
+                    bufferNotEmpty.signalAll();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
