@@ -3,27 +3,20 @@ package misc_topics.concurrency;
 public class ConcurrencyTest {
 
     public static void main(String[] args) {
-        System.out.println("Main method thread name 1 is: " + Thread.currentThread().getName());
+        //main thread
+        System.out.println("Running thread is: " + Thread.currentThread().getName());
 
-        Runnable runnable2 = () -> {
-            Thread.currentThread().setName("Runnable Thread");
-            System.out.println("Runnable thread name is : " + Thread.currentThread().getName());
-            try {
-                Thread.sleep(3000);
-                System.out.println("Thread: " + Thread.currentThread().getName() + " woke up and started again...");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        //Create a runnable and start it using lambda function
+        //Runnable is a functional interface
+        Runnable runnable = () -> {
+            System.out.println("Running thread is: " + Thread.currentThread().getName());
         };
-        new Thread(runnable2).start();
+        //Thread t1 = new Thread(runnable);
+        //t1.start();
+        new Thread(runnable).start();
 
-        Thread t3 = new Thread(()-> {
-            System.out.println("Thread: " + Thread.currentThread().getName() );
-        });
-        t3.start();
-
-        System.out.println("Main method thread name 2 is: " + Thread.currentThread().getName());
+        //Create a new thread of sample thread class and start it
+        SampleThread sampleThread = new SampleThread();
+        sampleThread.run();
     }
-
-
 }

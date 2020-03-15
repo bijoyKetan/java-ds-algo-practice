@@ -30,8 +30,7 @@ public class LambdaJavaFunctions {
         for (Person p : pList) {
             if (predicate.test(p))
                 System.out.println(p);
+            
         }
     }
-
-
 }
