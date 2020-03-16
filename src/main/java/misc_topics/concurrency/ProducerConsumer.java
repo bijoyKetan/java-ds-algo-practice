@@ -36,25 +36,19 @@ class MyProducer implements Runnable {
 
     @Override
     public void run() {
-        bufferLock.lock();
-        try {
-            while (buffer.isFull()){
-                System.out.println("Buffer is full. Producer is waiting...");
-            }
-            while (!buffer.isFull()) {
+
+        while (true) {
+         bufferLock.lock();
+            if (!buffer.isFull()) {
                 try {
                     buffer.addItemToBuffer(startingPoint++);
                     System.out.println(color + "Producer " + Thread.currentThread().getName() + " added: " + startingPoint + "\n------------------------------\n");
+                    bufferLock.unlock();
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-
-        }
-        finally {
-            System.out.println("The buffer is full so producer cannot add....");
-            bufferLock.unlock();
         }
     }
 }
@@ -77,22 +71,19 @@ class MyConsumer implements Runnable {
 
     @Override
     public void run() {
+
+        while (true) {
         bufferLock.lock();
-        try {
-            while (buffer.isEmpty()){
-                System.out.println("Buffer is empty. Consumer is waiting....");
-            }
-            while (!buffer.isEmpty()) {
+            if (!buffer.isEmpty()) {
                 try {
                     System.out.println(color + "Consumer " + Thread.currentThread().getName() + " consumed: " + buffer.removeItemFromBuffer() + "\n------------------------------\n");
+                    bufferLock.unlock();
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-        } finally {
-            System.out.println("The buffer is empty, so consumer cannot consume....");
-            bufferLock.unlock();
+
         }
     }
 
