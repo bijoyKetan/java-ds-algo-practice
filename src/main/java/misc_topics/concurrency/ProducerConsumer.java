@@ -8,11 +8,9 @@ public class ProducerConsumer {
     public static void main(String[] args) {
         Buffer sharedBuffer = new Buffer(Arrays.asList(1, 2));
         ReentrantLock bufferLock = new ReentrantLock();
-        Condition bufferNotEmpty = bufferLock.newCondition();
-        Condition bufferNotFull = bufferLock.newCondition();
 
-        MyProducer p1 = new MyProducer(ThreadColor.ANSI_CYAN, sharedBuffer, 2, bufferLock, bufferNotEmpty, bufferNotFull);
-        MyConsumer c1 = new MyConsumer(ThreadColor.ANSI_RED, sharedBuffer, bufferLock, bufferNotEmpty, bufferNotFull);
+        MyProducer p1 = new MyProducer(ThreadColor.ANSI_CYAN, sharedBuffer, 2, bufferLock);
+        MyConsumer c1 = new MyConsumer(ThreadColor.ANSI_RED, sharedBuffer, bufferLock);
 
         new Thread(p1).start();
         new Thread(c1).start();
@@ -28,37 +26,25 @@ class MyProducer implements Runnable {
     private final Buffer buffer;
     int startingPoint ;
     private final ReentrantLock bufferLock;
-    private Condition bufferNotEmpty;
-    private Condition bufferNotFull;
 
-
-    public MyProducer(String color, Buffer buffer, int startingPoint, ReentrantLock bufferLock, Condition bufferNotEmpty, Condition bufferNotFull) {
+    public MyProducer(String color, Buffer buffer, int startingPoint, ReentrantLock bufferLock) {
         this.color = color;
         this.buffer = buffer;
         this.startingPoint = startingPoint;
         this.bufferLock = bufferLock;
-        this.bufferNotEmpty = bufferNotEmpty;
-        this.bufferNotFull = bufferNotFull;
     }
 
     @Override
     public void run() {
-        startingPoint = 2;
         bufferLock.lock();
         try {
             while (buffer.isFull()){
-                try {
-                    System.out.println("Buffer is full. Producer is waiting...");
-                    bufferNotEmpty.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                System.out.println("Buffer is full. Producer is waiting...");
             }
             while (!buffer.isFull()) {
                 try {
                     buffer.addItemToBuffer(startingPoint++);
                     System.out.println(color + "Producer " + Thread.currentThread().getName() + " added: " + startingPoint + "\n------------------------------\n");
-                    bufferNotFull.signalAll();
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -81,15 +67,12 @@ class MyConsumer implements Runnable {
     private String color;
     private Buffer buffer;
     private ReentrantLock bufferLock;
-    private Condition bufferNotEmpty;
-    private Condition bufferNotFull;
 
-    public MyConsumer(String color, Buffer buffer, ReentrantLock bufferLock, Condition bufferNotEmpty, Condition bufferNotFull) {
+    public MyConsumer(String color, Buffer buffer, ReentrantLock bufferLock) {
         this.color = color;
         this.buffer = buffer;
         this.bufferLock = bufferLock;
-        this.bufferNotEmpty = bufferNotEmpty;
-        this.bufferNotFull = bufferNotFull;
+
     }
 
     @Override
@@ -97,18 +80,12 @@ class MyConsumer implements Runnable {
         bufferLock.lock();
         try {
             while (buffer.isEmpty()){
-                try {
-                    System.out.println("Buffer is empty. Consumer is waiting....");
-                    bufferNotFull.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                System.out.println("Buffer is empty. Consumer is waiting....");
             }
             while (!buffer.isEmpty()) {
                 try {
                     System.out.println(color + "Consumer " + Thread.currentThread().getName() + " consumed: " + buffer.removeItemFromBuffer() + "\n------------------------------\n");
                     Thread.sleep(500);
-                    bufferNotEmpty.signalAll();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
