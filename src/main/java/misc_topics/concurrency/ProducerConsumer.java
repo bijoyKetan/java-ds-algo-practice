@@ -1,6 +1,8 @@
 package misc_topics.concurrency;
 
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Condition;
@@ -11,7 +13,7 @@ public class ProducerConsumer {
         Buffer sharedBuffer = new Buffer(Arrays.asList(1, 2));
         ReentrantLock bufferLock = new ReentrantLock();
         Condition condition = bufferLock.newCondition();
-
+        BlockingQueue<Integer> blockingQueue = new ArrayBlockingQueue<Integer>(10);
         ExecutorService executorService = Executors.newFixedThreadPool(5);
 
         MyProducer p1 = new MyProducer(ThreadColor.ANSI_CYAN, sharedBuffer, 2, bufferLock, condition);
@@ -118,7 +120,6 @@ class MyConsumer implements Runnable {
     }
 
 }
-
 /**
  * Buffer class that holds the items.
  * Producer adds items to buffer.
