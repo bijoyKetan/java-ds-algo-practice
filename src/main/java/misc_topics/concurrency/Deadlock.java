@@ -1,5 +1,7 @@
 package misc_topics.concurrency;
 
+import org.junit.jupiter.params.shadow.com.univocity.parsers.csv.CsvFormat;
+
 /**
  * A sample class demonstrating how deadlock can occur and how it can be avoided
  * Solution: Ensure that both threads order the locks in the same order.

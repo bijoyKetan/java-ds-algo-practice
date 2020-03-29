@@ -1,6 +1,6 @@
 package misc_topics.concurrency;
 
-public class ConcurrencyTest {
+public class ConcurrencySimple {
 
     public static void main(String[] args) {
         //main thread
