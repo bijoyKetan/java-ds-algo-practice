@@ -15,7 +15,7 @@ public class StackNQueue {
         stack.push("D");
         stack.push("E");
 
-        //Get the topmost element
+        //Get the topmost element without changing data structure
         String stackHead = stack.peek();
 
         //Remove the top element

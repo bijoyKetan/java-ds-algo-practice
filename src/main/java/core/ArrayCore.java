@@ -9,22 +9,14 @@ public class ArrayCore {
         //Create the DS
         String[] strArr = {"Asia", "Europe", "Africa", "America", "Australia"};
 
-        //Iterate through and get first and last items
-        Map<String, Object> arrMap = new HashMap<>();
-        arrMap.put("FirstItem", strArr[0]);
-        arrMap.put("LastItem", strArr[strArr.length - 1]);
-        arrMap.put("StringArray", new ArrayList());
-
-        for (int i = 0; i < strArr.length; i++) {
-            List<String> s = (List<String>) arrMap.get("StringArray");
-            s.add(strArr[i]);
-            arrMap.put("StringArray", s);
-        }
+        //First and last items
+        String firstItem = strArr[0];
+        String lastItem = strArr[strArr.length - 1];
 
         //Copy array
         String[] copyArr = Arrays.copyOfRange(strArr, 0, strArr.length);
 
-        //Reverse string with char[]
+        //String as char array. Reverse string
         String str = "FooBar";
         char[] charArr = str.toCharArray();
         for (int i = 0; i < charArr.length / 2; i++) {
@@ -36,7 +28,7 @@ public class ArrayCore {
 
 
         //Print results
-        System.out.println("arrMap: " + arrMap + "\n");
+        System.out.println(String.format("First iItem: %s \nLast item: %s", firstItem, lastItem));
         System.out.println("Array copy: " + Arrays.toString(copyArr) + "\n");
         System.out.println("Reserved String: " + reversedString + "\n");
     }
