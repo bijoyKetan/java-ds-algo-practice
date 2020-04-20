@@ -1,21 +1,12 @@
 package ds_algo.tree_traversal;
 
-import org.junit.jupiter.api.Test;
-
-import java.util.*;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 //Create the treenode class, that has value and left and right children (threenodes).
-class TreeNode {
-    int value;
-    TreeNode rightChild;
-    TreeNode leftChild;
 
-    TreeNode(int x) {
-        this.value = x;
-    }
-}
 
 public class EC_BinaryTreeLevelOrderTraversal {
     //Given a binary tree, print the levels of the tree.
@@ -30,11 +21,11 @@ public class EC_BinaryTreeLevelOrderTraversal {
             levelList = new ArrayList<>(levelSize);
             for (int i = 0; i < levelSize; i++) {
                 TreeNode dequeuedNode = queue.poll();
-                levelList.add(dequeuedNode.value);
+                levelList.add(dequeuedNode.val);
 
                 if (dequeuedNode.leftChild != null) queue.offer(dequeuedNode.leftChild);
                 if (dequeuedNode.rightChild != null) queue.offer(dequeuedNode.rightChild);
-                levelList.add(dequeuedNode.value);
+                levelList.add(dequeuedNode.val);
             }
             resultList.add(levelList);
         }
