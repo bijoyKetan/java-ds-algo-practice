@@ -30,12 +30,13 @@ public class BreadthFirstSearch {
         List<List<Integer>> result = new ArrayList<>();
         //Check for empty tree
         if (root == null) return result;
-
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         while (!queue.isEmpty()) {
             List<Integer> currentLevel = new ArrayList<>();
-            for (int i = 0; i < queue.size(); i++) {
+            int queueSize = queue.size();
+            for (int i = 0; i < queueSize; i++) {
+
                 TreeNode currentNode = queue.poll();
                 currentLevel.add(currentNode.val);
                 if (currentNode.left != null) queue.offer(currentNode.left);
