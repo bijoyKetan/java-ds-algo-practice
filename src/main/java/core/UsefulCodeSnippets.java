@@ -53,8 +53,8 @@ public class UsefulCodeSnippets {
         testMap.put("Name", "Ketan");
         testMap.put("Location", "New York");
         testMap.put("Profession", "Engineer");
-        List<String> headers = new ArrayList(Arrays.asList("Name", "Gender", "Occupation"));
-        List<String> values = new ArrayList(Arrays.asList("Ketan", "Male", "Engineer"));
+        List<String> headers = new ArrayList<>(Arrays.asList("Name", "Gender", "Occupation"));
+        List<String> values = new ArrayList<>(Arrays.asList("Ketan", "Male", "Engineer"));
         for (int i = 0; i< headers.size(); i++){
             testMap.putIfAbsent(headers.get(i), values.get(i));
         }
@@ -94,12 +94,12 @@ public class UsefulCodeSnippets {
 
     //Stream with collection example
     public static void streammCollection() {
-        List<String> inputList = new ArrayList(Arrays.asList("Tom", "Sam", "Ron", "Monica"));
+        List<String> inputList = new ArrayList<>(Arrays.asList("Tom", "Sam", "Ron", "Monica"));
         //following results in [Sam]
         List<String> outputList = inputList
                 .stream()
                 .filter(x -> x.contains("am"))
-                .map(x -> x.toUpperCase())
+                .map(String::toUpperCase)
                 .collect(Collectors.toList());
 
         //Iterating with index

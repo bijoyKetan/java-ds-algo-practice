@@ -23,8 +23,8 @@ public class EC_BinaryTreeLevelOrderTraversal {
                 TreeNode dequeuedNode = queue.poll();
                 levelList.add(dequeuedNode.val);
 
-                if (dequeuedNode.leftChild != null) queue.offer(dequeuedNode.leftChild);
-                if (dequeuedNode.rightChild != null) queue.offer(dequeuedNode.rightChild);
+                if (dequeuedNode.left != null) queue.offer(dequeuedNode.left);
+                if (dequeuedNode.right != null) queue.offer(dequeuedNode.right);
                 levelList.add(dequeuedNode.val);
             }
             resultList.add(levelList);
@@ -34,10 +34,10 @@ public class EC_BinaryTreeLevelOrderTraversal {
 
     public static void main(String[] args) {
         TreeNode testTree = new TreeNode(1);
-        testTree.leftChild = new TreeNode(2);
-        testTree.rightChild = new TreeNode(3);
-        testTree.leftChild.rightChild = new TreeNode(4);
-        testTree.rightChild.leftChild = new TreeNode(5);
+        testTree.left = new TreeNode(2);
+        testTree.right = new TreeNode(3);
+        testTree.left.right = new TreeNode(4);
+        testTree.right.left = new TreeNode(5);
         System.out.println(levelOrderTraversal(testTree));
     }
 }
