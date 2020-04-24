@@ -1,8 +1,17 @@
 package core;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+
+import static core.DepthFirstSearch.inOrderTraversal;
+import static core.DepthFirstSearch.inOrderTraversalIterative;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 public class DepthFirstSearch {
 
@@ -58,18 +67,34 @@ public class DepthFirstSearch {
         }
         return result;
     }
+}
 
+class TestDepthFirstTraversals {
 
-    public static void main(String[] args) {
-        //https://www.educative.io/courses/grokking-the-coding-interview/RMlGwgpoKKY
-        TreeNode root = new TreeNode(12);
+    TreeNode root;
+
+    @BeforeEach
+    public void setUp() {
+        root = new TreeNode(12);
         root.left = new TreeNode(7);
         root.right = new TreeNode(1);
         root.left.left = new TreeNode(9);
         root.right.left = new TreeNode(10);
         root.right.right = new TreeNode(5);
+    }
 
-        //assertThat(postOrderTraversal(root)).isEqualTo(Arrays.asList(9, 7, 10, 5, 1, 12));
-        System.out.println(inOrderTraversalIterative(root));
+    @AfterEach
+    public void tearDown() {
+        root = null;
+    }
+    //Conduct one test at a time sine result array is shared (see the DepthFirstSearch class for details)
+//    @Test
+//    public void testPostOrderRecursive() {
+//        assertThat(postOrderTraversal(root)).isEqualTo(Arrays.asList(9, 7, 10, 5, 1, 12));
+//    }
+
+    @Test
+    public void testInOrderTraversalIterative() {
+        assertThat(inOrderTraversalIterative(root)).isEqualTo(inOrderTraversal(root));
     }
 }
