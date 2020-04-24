@@ -44,10 +44,8 @@ class ZigzagTraversal {
             leftToRight = !leftToRight;
             result.add(levelList);
         }
-
         return result;
     }
-
 
     public static void main(String[] args) {
         TreeNode root = new TreeNode(12);
@@ -62,4 +60,6 @@ class ZigzagTraversal {
         System.out.println("Zigzag traversal: " + result);
     }
 }
+
+
 
