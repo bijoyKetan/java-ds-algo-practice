@@ -4,12 +4,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
-import static core.DepthFirstSearch.inOrderTraversal;
-import static core.DepthFirstSearch.inOrderTraversalIterative;
+import static core.DepthFirstSearch.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -18,56 +15,88 @@ public class DepthFirstSearch {
     //Var needs to be outside method. Otherwise would get reinitialized each time.
     public static List<Integer> result = new ArrayList<>();
 
-    public static List<Integer> inOrderTraversal(TreeNode currentNode) {
+
+    public static List<Integer> inOrderTraversalRecursive(TreeNode currentNode) {
         //Implicitly the call stack is used here for LIFO.
         //left - node - right
         if (currentNode != null) {
-            inOrderTraversal(currentNode.left);
+            inOrderTraversalRecursive(currentNode.left);
             result.add(currentNode.val);
-            inOrderTraversal(currentNode.right);
+            inOrderTraversalRecursive(currentNode.right);
         }
         return result;
     }
 
-    public static List<Integer> preOrderTraversal(TreeNode currentNode) {
+    public static List<Integer> preOrderTraversalRecursive(TreeNode currentNode) {
         if (currentNode != null) {
             //node - left - right
             result.add(currentNode.val);
-            preOrderTraversal(currentNode.left);
-            preOrderTraversal(currentNode.right);
+            preOrderTraversalRecursive(currentNode.left);
+            preOrderTraversalRecursive(currentNode.right);
         }
         return result;
     }
 
-    public static List<Integer> postOrderTraversal(TreeNode currentNode) {
+    public static List<Integer> postOrderTraversalRecursive(TreeNode currentNode) {
         if (currentNode != null) {
             //left - right - node
-            postOrderTraversal(currentNode.left);
-            postOrderTraversal(currentNode.right);
+            postOrderTraversalRecursive(currentNode.left);
+            postOrderTraversalRecursive(currentNode.right);
             result.add(currentNode.val);
         }
         return result;
     }
 
     //--------ITERATIVE APPROACH WITH EXPLICIT STACK--------//
-    public static List<Integer> inOrderTraversalIterative(TreeNode root) {
-        TreeNode currentNode = root;
-        //Stack to hold the items
-        Stack<TreeNode> stack = new Stack<>();
 
-        while (!stack.isEmpty() || currentNode != null) {
-            //Keep iterating until the last left element
-            while (currentNode != null) {
-                stack.push(currentNode);
-                currentNode = currentNode.left;//keep moving the pointer
-            } //out of this loop means current node = null
-            currentNode = stack.pop(); //resets the current pointer to non-null
-            result.add(currentNode.val);
-            currentNode = currentNode.right; // look for the right branch of the sub tree
+    public static List<Integer> inOrderTraversalIterative(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        if (root == null) return result;
+
+        while (!stack.isEmpty() || root != null) {
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+            root = stack.pop();
+            result.add(root.val);
+            root = root.right;
+        }
+        return result;
+    }
+
+    public static List<Integer> preOrderTraversalIterative(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+
+        while (!stack.isEmpty()) {
+            root = stack.pop();
+            result.add(root.val);
+            if (root.right != null) stack.push(root.right);
+            if (root.left != null) stack.push(root.left);
+        }
+        return result;
+    }
+
+    public static List<Integer> postOrderTraversalIterative(TreeNode root) {
+        LinkedList<Integer> result = new LinkedList<>();
+        if (root == null) return result;
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+
+        while (!stack.isEmpty()) {
+            root = stack.pop();
+            result.addFirst(root.val); //adding in a reverse order
+            if (root.left != null) stack.push(root.left);
+            if (root.right != null) stack.push(root.right);
         }
         return result;
     }
 }
+
 
 class TestDepthFirstTraversals {
 
@@ -87,14 +116,26 @@ class TestDepthFirstTraversals {
     public void tearDown() {
         root = null;
     }
+
     //Conduct one test at a time sine result array is shared (see the DepthFirstSearch class for details)
-//    @Test
-//    public void testPostOrderRecursive() {
-//        assertThat(postOrderTraversal(root)).isEqualTo(Arrays.asList(9, 7, 10, 5, 1, 12));
-//    }
+    @Test
+    public void testPostOrderRecursive() {
+        assertThat(postOrderTraversalRecursive(root)).isEqualTo(Arrays.asList(9, 7, 10, 5, 1, 12));
+    }
 
     @Test
     public void testInOrderTraversalIterative() {
-        assertThat(inOrderTraversalIterative(root)).isEqualTo(inOrderTraversal(root));
+        assertThat(inOrderTraversalIterative(root)).isEqualTo(inOrderTraversalRecursive(root));
+    }
+
+    @Test
+    public void testPreOrderTraversalIterative() {
+        assertThat(preOrderTraversalIterative(root)).isEqualTo(preOrderTraversalRecursive(root));
+        assertThat(preOrderTraversalIterative(root)).isEqualTo(Arrays.asList(12, 7, 9, 1, 10, 5));
+    }
+
+    @Test
+    public void testPostOrderTraversalIterative() {
+        assertThat(postOrderTraversalRecursive(root)).isEqualTo(postOrderTraversalIterative(root));
     }
 }
