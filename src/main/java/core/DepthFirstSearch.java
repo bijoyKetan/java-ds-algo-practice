@@ -49,23 +49,6 @@ public class DepthFirstSearch {
 
     //--------ITERATIVE APPROACH WITH EXPLICIT STACK--------//
 
-    public static List<Integer> inOrderTraversalIterative(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack<>();
-        if (root == null) return result;
-
-        while (!stack.isEmpty() || root != null) {
-            while (root != null) {
-                stack.push(root);
-                root = root.left;
-            }
-            root = stack.pop();
-            result.add(root.val);
-            root = root.right;
-        }
-        return result;
-    }
-
     public static List<Integer> preOrderTraversalIterative(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         if (root == null) return result;
@@ -92,6 +75,23 @@ public class DepthFirstSearch {
             result.addFirst(root.val); //adding in a reverse order
             if (root.left != null) stack.push(root.left);
             if (root.right != null) stack.push(root.right);
+        }
+        return result;
+    }
+
+    public static List<Integer> inOrderTraversalIterative(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        if (root == null) return result;
+
+        while (!stack.isEmpty() || root != null) {
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+            root = stack.pop();
+            result.add(root.val);
+            root = root.right;
         }
         return result;
     }
