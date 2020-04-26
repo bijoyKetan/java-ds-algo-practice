@@ -7,15 +7,17 @@ import java.util.Stack;
 public class EC_TreePathSum {
     public static boolean hasPathRecursive(TreeNode root, int sum) {
         if (root == null) return false;
+        sum -= root.val; // each node from the sum's pov represents the diff w.r.t target
         if (root.left == null && root.right == null) {
-            return sum == root.val;
+            return sum == 0;
         }
-        return hasPathRecursive(root.left, sum - root.val) || hasPathRecursive(root.right, sum - root.val);
+        return hasPathRecursive(root.left, sum) || hasPathRecursive(root.right, sum);
     }
 
     public static boolean hasPathIterative(TreeNode root, int sum) {
+        if (root == null) return false;
         //Need to maintain two stacks to be able to trace the distinct paths from root to leaves
-        //In order traversal
+        //Pre order traversal
         Stack<TreeNode> stackNode = new Stack<>();
         stackNode.push(root);
         Stack<Integer> stackSum = new Stack<>();
