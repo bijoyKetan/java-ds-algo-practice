@@ -23,6 +23,9 @@ public class EC_MinimumBinaryTreeDepth {
         return level;
     }
 
+    //Time complexity: O(N) where N-> number of nodes (each node to be visited once).
+    //Space complexity: O(N/2) -> O(N). N/2 is the max possible size of the queue.
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(12);
         root.left = new TreeNode(7);
