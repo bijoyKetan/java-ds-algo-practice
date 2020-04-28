@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 //Create a node class
 class TreeNode {
@@ -20,27 +22,25 @@ class TreeNode {
 //Class to conduct BFS - print the items of each level as a list
 public class BreadthFirstSearch {
     //Create a queue to hold the nodes
-    //Add the root
+    //Check if the root is null. If not null, add the root
     //Do the following until queue is empty (while !queue.isEmpty())
-    //Iterate over the queue of size s, poll the items
-    //Add the polled item to an inner list
-    //For each polled item, check if right node exists and if left node exists
-    //Add the left and right children to the queue
-    public static List<List<Integer>> LevelOrderTraversal(TreeNode root) {
+    //Get queue size. Iterate ove that queueSize -> represents the level size
+    //Poll from queue and point root to that. Add root to levelList
+    //Add the left and right children of root to the queue, if they exist
+    public static List<List<Integer>> levelOrderTraversal(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
-        //Check for empty tree
         if (root == null) return result;
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
+
         while (!queue.isEmpty()) {
             List<Integer> currentLevel = new ArrayList<>();
             int queueSize = queue.size();
             for (int i = 0; i < queueSize; i++) {
-
-                TreeNode currentNode = queue.poll();
-                currentLevel.add(currentNode.val);
-                if (currentNode.left != null) queue.offer(currentNode.left);
-                if (currentNode.right != null) queue.offer(currentNode.right);
+                root = queue.poll();
+                currentLevel.add(root.val);
+                if (root.left != null) queue.offer(root.left);
+                if (root.right != null) queue.offer(root.right);
             }
             result.add(currentLevel);
         }
@@ -55,10 +55,9 @@ public class BreadthFirstSearch {
         root.right.left = new TreeNode(10);
         root.right.right = new TreeNode(5);
 
-        System.out.println(LevelOrderTraversal(root));
-
+        System.out.println(levelOrderTraversal(root));
+        assertThat(levelOrderTraversal(root).toString()).isEqualTo("[[12], [7, 1], [9, 10, 5]]");
     }
-
 }
 
 

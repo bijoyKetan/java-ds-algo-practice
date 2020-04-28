@@ -12,20 +12,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class DepthFirstSearch {
 
-    //Var needs to be outside method. Otherwise would get reinitialized each time.
+    //Var needs to be outside method for recursions. Otherwise would get reinitialized each time.
     public static List<Integer> result = new ArrayList<>();
-
-
-    public static List<Integer> inOrderTraversalRecursive(TreeNode currentNode) {
-        //Implicitly the call stack is used here for LIFO.
-        //left - node - right
-        if (currentNode != null) {
-            inOrderTraversalRecursive(currentNode.left);
-            result.add(currentNode.val);
-            inOrderTraversalRecursive(currentNode.right);
-        }
-        return result;
-    }
 
     public static List<Integer> preOrderTraversalRecursive(TreeNode currentNode) {
         if (currentNode != null) {
@@ -43,6 +31,17 @@ public class DepthFirstSearch {
             postOrderTraversalRecursive(currentNode.left);
             postOrderTraversalRecursive(currentNode.right);
             result.add(currentNode.val);
+        }
+        return result;
+    }
+
+    public static List<Integer> inOrderTraversalRecursive(TreeNode currentNode) {
+        //Implicitly the call stack is used here for LIFO.
+        //left - node - right
+        if (currentNode != null) {
+            inOrderTraversalRecursive(currentNode.left);
+            result.add(currentNode.val);
+            inOrderTraversalRecursive(currentNode.right);
         }
         return result;
     }
