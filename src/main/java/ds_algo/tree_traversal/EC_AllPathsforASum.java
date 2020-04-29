@@ -1,54 +1,34 @@
 package ds_algo.tree_traversal;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class EC_AllPathsforASum {
-    public static List<List<Integer>> findPathsIterative(TreeNode root, int sum) {
-        List<List<Integer>> allPaths = new ArrayList<>();
-        LinkedList<Integer> innerList;
-        if (root == null) return allPaths;
-        Stack<TreeNode> stackNode = new Stack<>();
-        Stack<Integer> stackSum = new Stack<>();
-        stackNode.push(root);
-        stackSum.push(sum - root.val);
-
-        while (!stackNode.isEmpty()) {
-            root = stackNode.pop();
-            sum = stackSum.pop();
-
-            if (root.right == null && root.left == null && sum == 0) {
-                innerList = new LinkedList<>();
-                for (int i = 0; i < stackNode.size(); i++) {
-                    innerList.addFirst(stackNode.elementAt(i).val);
-                }
-                allPaths.add(innerList);
-            }
-
-            if (root.right != null) {
-                stackNode.push(root.right);
-                stackSum.push(sum - root.right.val);
-            }
-
-            if (root.left != null) {
-                stackNode.push(root.left);
-                stackSum.push(sum - root.left.val);
-            }
-
-        }
-
-        return allPaths;
+    public static List<List<Integer>> findPaths(TreeNode root, int sum) {
+        List<List<Integer>> paths = new ArrayList<>();
+        List<Integer> currentPath = new ArrayList<>();
+        findPathsHelper(root, sum, paths, currentPath);
+        return paths;
     }
 
-//    public static List<List<Integer>> findPathsRecursive(TreeNode root) {
-//        List<List<Integer>> allPaths = new ArrayList<>();
-//        List<Integer> innerList = new ArrayList<>();
-//
-//        if (root == null) return allPaths;
-//
-//    }
+    private static void findPathsHelper(TreeNode root, int sum, List<List<Integer>> paths, List<Integer> currentPath) {
+        //base case 1
+        if (root == null) return;
+        //base case 2
+        //node processing
+        currentPath.add(root.val);
+        sum -= root.val;
+        if (root.left == null && root.right == null && sum == 0) {
+            paths.add(new ArrayList<>(currentPath));
+        }
+        //recursive steps
+        findPathsHelper(root.left, sum, paths, currentPath);
+        findPathsHelper(root.right, sum, paths, currentPath);
+        //backtracking step
+        currentPath.remove(currentPath.size() - 1);
+    }
 
 
     public static void main(String[] args) {
@@ -59,8 +39,9 @@ public class EC_AllPathsforASum {
         root.right.left = new TreeNode(10);
         root.right.right = new TreeNode(5);
         int sum = 23;
-        List<List<Integer>> result = findPathsIterative(root, sum);
+        List<List<Integer>> result = findPaths(root, sum);
         System.out.println("Tree paths with sum " + sum + ": " + result);
+        assertThat(findPaths(root, 23).toString()).isEqualTo("[[12, 7, 4], [12, 1, 10]]");
     }
 }
 

@@ -3,7 +3,7 @@ package ds_algo.recursion;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Palindrome {
-    //Steps- declate the vars that we need. Call the helper func with those things. return the result.
+    //Steps- declare the vars that we need. Call the helper func with those things. return the result.
     public static boolean isPalindromeWithHelper(String s) {
         s = s.toUpperCase();
         char firstLetter = s.charAt(0);
