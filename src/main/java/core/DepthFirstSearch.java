@@ -45,8 +45,10 @@ public class DepthFirstSearch {
         }
         return result;
     }
-
+    //******************************************************//
     //--------ITERATIVE APPROACH WITH EXPLICIT STACK--------//
+    //******************************************************//
+
 
     public static List<Integer> preOrderTraversalIterative(TreeNode root) {
         List<Integer> result = new ArrayList<>();
