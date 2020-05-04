@@ -20,57 +20,83 @@ package core;
 
 public class StringCore {
     public static void main(String[] args) {
-        System.out.println("The string class is working");
 
-        String myString = "SampleString";
-        String upperString = myString.toUpperCase();
-        System.out.println("Upper: -> " + upperString);
-
-        //Iterate through the elements of String
-        for (char c : myString.toCharArray()) System.out.println(c);
-        for (int i = 0; i < myString.length(); i++) System.out.println(myString.charAt(i));
+        String a = " New York  "; //Initialized -> " New York  "
+        a = a.trim(); //leading and trailing spaces removed -> "New York"
+        a = a.replace(' ', '*'); // character replaced -> New*York
+        a = a.replace("ew", "!!"); // seq of chars replaced -> N!!*York
+        a = a.toUpperCase(); // -> N!!*YORK
+        a = a.toLowerCase(); // -> n!!*york
 
         /*
-        String booleans
-        Starts with
-        Ends with
-        Contains
+        Note: String in Java is immutable, but StringBuilder is immutable
+        so, when a string is manipulated, a new string object is created in string pool and
+        the reference is changed to point to new object by the original object is unchanged.
+        We can prove that by comparing hashcode of the objects
+        TO compare value of two string objects, use equals()
          */
-        boolean startsWithSam = myString.toUpperCase().startsWith("SAM");
-        boolean endsWithSam = myString.toUpperCase().endsWith("SAM");
-        boolean containsSam = myString.toUpperCase().contains("SAM");
-        System.out.println(
-                "Starts with SAM -> " + startsWithSam + "\n" +
-                        "Ends with SAM -> " + endsWithSam + "\n" +
-                        "Contains SAM -> " + containsSam + "\n"
-        );
 
+        //String can be viewed as a char[]
+        char[] charArray = {'L', 'o', 'c', 'k'};
+        String c = new String(charArray); // -> Lock
 
-        //Substring - last three characters
-        String mySubStr = myString.substring(myString.length() - 3, myString.length());
-        System.out.println(mySubStr);
-
-        //Check if a character is letter or digit
-        String str = "Person";
-        boolean b = Character.isLetterOrDigit(str.charAt(0));
-
-        //Reversing a string
-        String s = "Hello world!";
-        char[] stringArray = s.toCharArray();
-        char[] resultArray = new char[stringArray.length];
-        for (int i = stringArray.length - 1; i >= 0; i--) {
-            resultArray[stringArray.length - 1 - i] = stringArray[i];
+        //Reverse String c in place
+        char[] d = c.toCharArray();
+        int size = d.length;
+        for (int i = 0; i < size / 2; i++) {
+            char temp = d[i];
+            d[i] = d[size - i - 1];
+            d[size - i - 1] = temp;
         }
-        System.out.println(new String(resultArray));
+        //-> kcoL
 
-        //reversing string - approach 2- with constant space
-        for (int i = 0; i < stringArray.length / 2; i++) {
-            int j = stringArray.length - 1 - i;
-            char temp = stringArray[i];
-            stringArray[i] = stringArray[j];
-            stringArray[j] = temp;
+        //Reversing with two pointers
+        char[] charArray2 = {'T', 'e', 'n', 't'};
+        String e = new String(charArray2);
+        int m = 0;
+        int n = charArray2.length - 1;
+        while (m < n) {
+            char temp = charArray2[m];
+            charArray2[m] = charArray2[n];
+            charArray2[n] = temp;
+            m++;
+            n--;
         }
-        System.out.println(new String(stringArray));
+        // -> tneT
 
+        //Other string methods
+        String z = "Sample String...";
+        boolean bool = z.contains("sa"); // bool -> false
+        bool = z.startsWith("Sa"); // bool -> true
+        bool = z.startsWith("ple", 3); //offset = index of the first letter. bool -> true
+        bool = z.endsWith("g..."); // bool ->  true
+        bool = z.equalsIgnoreCase("SAMPLE String..."); // -> true
+        String zSubString = z.substring(1, z.length() - 1); // inclusive start and exclusive start -> ample String..
+
+        //***************//
+        //VARIOUS TRICKS//
+        //***************//
+        //Is a given character letter or digit
+        String str = "This is 2019!";
+        bool = Character.isLetterOrDigit(str.charAt(0)); // true
+
+        int num = 5;
+        String strNum = "" + num; //converts to string
+
+        String someNum = "33";
+        int someNumInt = Integer.parseInt(someNum); // -> 33
+        System.out.println(someNum);
+        
+
+        //*****************//
+        //  STRING BUILDER //
+        //*****************//
+        //For multiple manipulations, use StringBuilder
+        StringBuilder b = new StringBuilder("California");
+        b.append(", CA"); // -> California, CA
+        b.reverse(); // -> AC ,ainrofilaC
+        b.reverse(); // -> California, CA
+        b.deleteCharAt(b.length() - 1); // -> California, C
+        b.delete(b.indexOf(","), b.lastIndexOf("C") + 1); // same as -> b.delete(10, 12+1); -> California
     }
 }
