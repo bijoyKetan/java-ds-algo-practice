@@ -37,12 +37,9 @@ class TreeNode2 {
 
 class EC_ConnectLevelOrderSiblings {
     public static void connect(TreeNode2 root) {
-        // TODO: Write your code here
         if (root == null) return;
         Deque<TreeNode2> queue = new ArrayDeque<>();
         queue.offer(root);
-        //TreeNode2 previousNode = null;
-
         while (!queue.isEmpty()) {
             int queueSize = queue.size();
             for (int i = 0; i < queueSize; i++) {
