@@ -5,19 +5,19 @@ import java.util.Arrays;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SlidingWindow {
-    //find the average of all contiguous subarrays of size ‘K’ in it.
+    //Find the average of all contiguous subarrays of size ‘K’ in it.
     public static double[] findAverages(int K, int[] arr) {
-        //base case- add item from right and remove from left
-        double sum = 0;
-        int start = 0;
-        int end = 0;
+        double sum = 0; //variable to be tracked for processing
+        int start = 0; // window start
+        int end = 0; //window end
         double[] sumArray = new double[arr.length - K + 1];
-        for (end = 0; end < arr.length; end++) {
+
+        for (end = 0; end < arr.length; end++) { //grow from right, end++
             sum += arr[end];
-            if (end >= K - 1) {
+            if (end >= K - 1) { //condition for window to grow to required size
                 sumArray[start] = sum / K;
                 sum -= arr[start];
-                start++;
+                start++; //shrink from left
             }
         }
         return sumArray;

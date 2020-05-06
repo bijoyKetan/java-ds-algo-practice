@@ -25,6 +25,7 @@ public class UsefulCodeBlocks {
             System.out.format("%s : %s\n", e.getKey(), e.getValue());
         }
 
-
+        //Declare multiple variables in the same line
+        int a = 10, b = 20;
     }
 }
