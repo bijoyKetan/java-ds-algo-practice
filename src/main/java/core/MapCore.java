@@ -82,6 +82,7 @@ public class MapCore {
         //But the list can be cast to a set and compared
         Set<String> set1 = new HashSet<>(Arrays.asList("Dhaka", "NYC", "Tokyo", "Budapest"));
         Set<String> set2 = new HashSet<>(Arrays.asList("NYC", "Dhaka", "Tokyo", "Budapest"));
+        boolean setContains = set1.contains("NYC");//true
         set1.equals(set2); // -> true
         List<String> list3 = Arrays.asList("NYC", "Dhaka", "Tokyo", "Budapest");
         new HashSet<>(list3).equals(set1);// -> true
@@ -104,9 +105,10 @@ public class MapCore {
         System.out.println("listValuesToCompare: " + listValuesToCompare + "\n");
 
         System.out.println("isDuplicateList1: " + isDuplicateList1);
-        System.out.println("isDuplicateList2: " + isDuplicateList2);
+        System.out.println("isDuplicateList2: " + isDuplicateList2 + "\n");
 
         System.out.println("Set 1: " + set1.toString());
+        System.out.println("Set1 contains NYC: " + setContains);
         System.out.println("Equality Check S1 vs. S2: " + set1.equals(set2));
         System.out.println("Equality check with a list with same content: " + new HashSet<>(list3).equals(set1));
     }
