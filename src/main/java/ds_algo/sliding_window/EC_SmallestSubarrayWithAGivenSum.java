@@ -28,11 +28,11 @@ public class EC_SmallestSubarrayWithAGivenSum {
 
     public static void main(String[] args) {
         int result = findMinSubArray(7, new int[]{2, 1, 5, 2, 3, 2});
-        System.out.println("Smallest subarray length: " + result);
+        System.out.println("Smallest subarray length: " + result); // Expected 2
         result = findMinSubArray(7, new int[]{2, 1, 5, 2, 8});
-        System.out.println("Smallest subarray length: " + result);
+        System.out.println("Smallest subarray length: " + result); // Expected 1
         result = findMinSubArray(8, new int[]{3, 4, 1, 1, 6});
-        System.out.println("Smallest subarray length: " + result);
+        System.out.println("Smallest subarray length: " + result); // Expected 3
     }
 }
 
