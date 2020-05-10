@@ -83,9 +83,15 @@ public class MapCore {
         Set<String> set1 = new HashSet<>(Arrays.asList("Dhaka", "NYC", "Tokyo", "Budapest"));
         Set<String> set2 = new HashSet<>(Arrays.asList("NYC", "Dhaka", "Tokyo", "Budapest"));
         boolean setContains = set1.contains("NYC");//true
+        set1.add("NYC"); //-> This will leave the set unchanged as NYC is already in set
+        set1.remove("New"); //-> Won't change anything as the set doesn't contain New
         set1.equals(set2); // -> true
         List<String> list3 = Arrays.asList("NYC", "Dhaka", "Tokyo", "Budapest");
         new HashSet<>(list3).equals(set1);// -> true
+
+        //To use Set vs. Dictionary
+        //Note that Set is good with distinct items, but
+        //if the items need to be removed and a count is required, use dictionary
 
 
         //Print the results
