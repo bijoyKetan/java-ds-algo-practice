@@ -1,6 +1,6 @@
 package core;
 
-import java.util.*;
+import java.util.Arrays;
 
 public class ArrayCore {
 
@@ -13,7 +13,7 @@ public class ArrayCore {
         String firstItem = strArr[0];
         String lastItem = strArr[strArr.length - 1];
 
-        //Copy array
+        //Copy array (from inclusive, to exclusive)
         String[] copyArr = Arrays.copyOfRange(strArr, 0, strArr.length);
 
         //String as char array. Reverse string
