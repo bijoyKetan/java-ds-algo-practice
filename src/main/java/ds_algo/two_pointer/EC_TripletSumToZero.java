@@ -23,14 +23,14 @@ public class EC_TripletSumToZero {
                 while (start < end) {
                     if (-arr[i] == arr[start] + arr[end]) {
                         result.add(Arrays.asList(arr[i], arr[start], arr[end]));
+                        while (start < end && arr[end] == arr[end - 1]) end--;  //skip duplicates
+                        while (start < end && arr[start] == arr[start + 1]) start++; //skip duplicates
                         start++;
                         end--;
                     } else if (-arr[i] < arr[start] + arr[end]) {
                         end--;
-                        while (start < end && arr[end] == arr[end - 1]) end--;  //skip duplicates
                     } else {
                         start++;
-                        while (start < end && arr[start] == arr[start + 1]) start++; //skip duplicates
                     }
                 }
             }
