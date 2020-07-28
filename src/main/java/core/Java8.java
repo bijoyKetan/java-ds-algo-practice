@@ -1,10 +1,12 @@
 package core;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class Java8 {
+public class    Java8 {
 
     public static void main(String[] args) {
 
@@ -25,6 +27,10 @@ public class Java8 {
 
         System.out.println("List of optionals: " + transformedList);
 
+        var aMap = new HashMap<String, String>(){{
+            put("a", "sad");
+        }};
+
         //Flatmap
         var listA = Arrays.asList("a", "b", "c");
         var listB = Arrays.asList("w", "x", "y");
@@ -34,7 +40,8 @@ public class Java8 {
         System.out.println("Unflattened list: " + heterogeneousList);
 
         var homogeneousList = heterogeneousList.stream()
-                .flatMap(list -> list.stream())
+                .flatMap(Collection::stream)
+                .map(String::toUpperCase)
                 .collect(Collectors.toList());
 
         System.out.println("Flattened list: " + homogeneousList);

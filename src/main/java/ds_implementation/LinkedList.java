@@ -41,7 +41,7 @@ public class LinkedList {
     }
 
     //Printing the items of linked list
-    public static void printList(LinkedList ls) {
+    public void printList(LinkedList ls) {
         Node temp = ls.head;
         while (temp != null) {
             if (temp.next != null) {
@@ -53,7 +53,7 @@ public class LinkedList {
         }
     }
 
-    public static LinkedList reverseList(LinkedList head) {
+    public static LinkedList reverseList(LinkedList ls) {
         return null;
     }
 

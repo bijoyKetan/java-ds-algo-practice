@@ -1,6 +1,7 @@
 package ds_algo.two_pointer;
 
 import java.util.Arrays;
+import java.util.List;
 
 //https://www.educative.io/courses/grokking-the-coding-interview/mElknO5OKBO
 public class EC_TripletsWithSmallerSum {
@@ -25,8 +26,12 @@ public class EC_TripletsWithSmallerSum {
                 } else end--;
             }
         }
-
         return count;
+    }
+
+    public static List<List<Integer>> getAllTriplets(int[] arr, int target) {
+        //TODO - Complete this part
+        return null;
     }
 
     public static void main(String[] args) {

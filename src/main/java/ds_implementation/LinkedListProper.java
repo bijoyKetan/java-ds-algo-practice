@@ -238,11 +238,7 @@ public class LinkedListProper<AnyType> implements Iterable<AnyType> {
         return twin;
     }
 
-    /*******************************************************
-     *
-     *  The Node class
-     *
-     ********************************************************/
+    /*** The Node class ***/
     private static class Node<AnyType> {
         private AnyType data;
         private Node<AnyType> next;
@@ -253,11 +249,7 @@ public class LinkedListProper<AnyType> implements Iterable<AnyType> {
         }
     }
 
-    /*******************************************************
-     *
-     *  The Iterator class
-     *
-     ********************************************************/
+    /*** The Iterator class ***/
 
     public Iterator<AnyType> iterator() {
         return new LinkedListIterator();
