@@ -40,6 +40,23 @@ public class LinkedList {
         return this;
     }
 
+    public LinkedList addFirst(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+        return this;
+    }
+
+    //TODO - Return the node in given index
+    public Node getNode(int index) {
+        return null;
+    }
+
+    //TODO - Delete a node at a given index
+    public LinkedList deleteNode(int index) {
+        return null;
+    }
+
     //Printing the items of linked list
     public void printList(LinkedList ls) {
         Node temp = ls.head;
@@ -54,7 +71,7 @@ public class LinkedList {
     }
 
     //Reversing linked list iteratively/ in constant space
-    public static LinkedList reverseListIteratively(LinkedList ls) {
+    public LinkedList reverseListIteratively(LinkedList ls) {
         //1. Store next node
         //2. Reverse the pointer of current node
         //3. Move prev node to current node
@@ -78,7 +95,13 @@ public class LinkedList {
         ls.addLast(1).addLast(2).addLast(3).addLast(4).addLast(5);
         System.out.println("Original Linked list is: ");
         printList(ls); // 1,2,3,4,5
+
         reverseListIteratively(ls);
         printList(ls); // 5,4,3,2,1
+        reverseListIteratively(ls);
+
+        ls.addFirst(0);
+        printList(ls);
+
     }
 }
