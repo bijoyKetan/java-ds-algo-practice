@@ -1,13 +1,5 @@
 package ds_impl;
 
-// Implement a linked List. The head should describe the entire list.
-// Expected code that should work
-// LinkedList linkedList = new LinkedList(); => Creation of new LinkedList
-// linkedList.add(5).add(7).add(9);
-// linkedList.print(); => 5,7,8
-// linkedList.reverse();
-// linkedList.print() => 8,7,5
-
 import org.junit.jupiter.api.Test;
 
 public class LinkedList {
@@ -47,9 +39,18 @@ public class LinkedList {
         return this;
     }
 
-    //TODO - Return the node in given index
-    public Node getNode(int index) {
-        return null;
+    public int getNodeVal(int index) {
+        if (index < 0) throw new IllegalArgumentException("Index cannot be negative");
+        int count = 0;
+        Node current = head;
+        while (count != index) {
+            if (current == null) {
+                throw new IllegalArgumentException("Invalid Input");
+            }
+            current = current.next;
+            count++;
+        }
+        return current.data;
     }
 
     //TODO - Delete a node at a given index
@@ -101,7 +102,10 @@ public class LinkedList {
         reverseListIteratively(ls);
 
         ls.addFirst(0);
-        printList(ls);
+        printList(ls); //0,1,2,3,4,5
+
+        System.out.println(ls.getNodeVal(4));//4
+
 
     }
 }
