@@ -1,4 +1,4 @@
-package ds_implementation;
+package ds_impl;
 
 // Implement a linked List. The head should describe the entire list.
 // Expected code that should work
@@ -53,14 +53,32 @@ public class LinkedList {
         }
     }
 
-    public static LinkedList reverseList(LinkedList ls) {
-        return null;
+    //Reversing linked list iteratively/ in constant space
+    public static LinkedList reverseListIteratively(LinkedList ls) {
+        //1. Store next node
+        //2. Reverse the pointer of current node
+        //3. Move prev node to current node
+        //4. Move current node to next node
+        Node current = ls.head;
+        Node prev = null;
+        Node next = null;
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        ls.head = prev; //since current is null
+        return ls;
     }
 
     @Test
     public void testLinkedList() {
         LinkedList ls = new LinkedList();
-        ls.addLast(4).addLast(5).addLast(6);
-        printList(ls);
+        ls.addLast(1).addLast(2).addLast(3).addLast(4).addLast(5);
+        System.out.println("Original Linked list is: ");
+        printList(ls); // 1,2,3,4,5
+        reverseListIteratively(ls);
+        printList(ls); // 5,4,3,2,1
     }
 }

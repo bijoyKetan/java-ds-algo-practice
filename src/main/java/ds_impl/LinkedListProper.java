@@ -1,7 +1,7 @@
 /***************************************************************************
  * A Linked List class with a private static inner Node class.*
  *****************************************************************************/
-package ds_implementation;
+package ds_impl;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
