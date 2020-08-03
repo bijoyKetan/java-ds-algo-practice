@@ -39,7 +39,7 @@ public class LinkedList {
         return this;
     }
 
-    public int getNodeVal(int index) {
+    public Node getNode(int index) {
         if (index < 0) throw new IllegalArgumentException("Index cannot be negative");
         int count = 0;
         Node current = head;
@@ -50,13 +50,36 @@ public class LinkedList {
             current = current.next;
             count++;
         }
-        return current.data;
+        return current;
     }
 
-    //TODO - Delete a node at a given index
+    //Delete a node at a given index
     public LinkedList deleteNode(int index) {
-        return null;
+        //        Implementing using the getNode method implemented above
+        //        if (index == 0) {
+        //            head = head.next;
+        //        } else {
+        //            getNode(index - 1).next = getNode(index + 1);
+        //        }
+
+        //        Implementing from scratch
+        if (head == null || head.next == null) return null;
+        if (index == 0){
+            head = head.next;
+            return this;
+        }
+        int count = 1;
+        Node current = head;
+        while (count < index) {
+            current = current.next;
+            count++;
+        }
+        //Check for out of bounds index input
+        if (count == index + 1) throw new IllegalArgumentException("Invalid index");
+        current.next = current.next.next;
+        return this;
     }
+
 
     //Printing the items of linked list
     public void printList(LinkedList ls) {
@@ -104,8 +127,9 @@ public class LinkedList {
         ls.addFirst(0);
         printList(ls); //0,1,2,3,4,5
 
-        System.out.println(ls.getNodeVal(4));//4
+        System.out.println(ls.getNode(4).data);//4
 
-
+        ls.deleteNode(0);
+        printList(ls);
     }
 }
