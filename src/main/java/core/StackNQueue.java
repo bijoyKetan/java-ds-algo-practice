@@ -1,10 +1,48 @@
 package core;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import org.junit.jupiter.api.Test;
+
+import java.util.*;
 
 public class StackNQueue {
+
+    @Test
+    public void testStackQueue() {
+        //Queue
+        Deque<String> stack = new ArrayDeque<>();
+        stack.push("sv1"); //void
+        stack.push("sv2");
+        stack.push("sv3");
+        stack.peek(); //sv3. Return the last item
+        stack.pop(); //sv3. Also removes v2 from stack.
+        stack.size(); // 2, since sv3 popped
+        stack.isEmpty(); // false
+        Arrays.toString(stack.toArray()); //[sv2, sv1]
+        stack.clear(); //removes all items
+        stack.isEmpty(); //true
+
+        //Stack
+        Deque<String> queue = new ArrayDeque<>();
+        queue.offer("qv1"); //true, returns boolean
+        queue.offer("qv2");
+        queue.offer("qv3");
+        queue.peek(); // qv1. Doesn't remove anything
+        queue.poll(); // qv1. Removes qv1 from the queue
+        queue.size(); // 2
+        queue.isEmpty();//false
+        queue.clear(); //removes all items
+        queue.isEmpty();// true
+
+        //Other available methods, not to be used for stack/queue
+        Deque<String> deque = new ArrayDeque<>();
+        deque.addFirst("d1"); //void
+        deque.addLast("d2"); //void
+        deque.getFirst(); //d1
+        deque.getLast(); //d2
+        deque.removeFirst(); //d1
+        deque.removeLast(); //d2
+        deque.contains("d2"); //false
+    }
 
     public static void main(String[] args) {
         //Stack DS creation
