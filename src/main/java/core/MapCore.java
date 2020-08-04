@@ -1,11 +1,32 @@
 package core;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.*;
 
 public class MapCore {
 
-    public static void main(String[] args) {
+    @Test
+    public void mapTest() {
+        Map<String, String> map = new HashMap();
+        map.put("k1", "v1");
+        map.put("k2", "v2"); //Keys can't be duplicate or null. Values can be
+        map.get("k1"); // => v1. value of key k1
+        map.getOrDefault("k3", "defaultVal"); // => defaultVal, since k3 absent
+        map.putIfAbsent("k3", "v3"); //=> v3.  Added k3,v3 (if k3 were absent)
+        map.remove("k2"); // => v2. Removed the key value pair
+        map.entrySet(); // [k1=v1, k3=v3]. Set of the entries.
+        map.keySet(); // [k1, k3]. Set of keys
+        map.values();// [v1, v3]. Collection of values. Will include all values, including duplicates.
+        map.containsKey("k2"); //true
+        map.containsValue("v4");//false
+        map.isEmpty(); //false
+        map.size(); //
+        //map.putAll(map2); // void. add all key-values of map2 to map
+        map.clear();// void. Removes all key-values of map.
+    }
 
+    public static void main(String[] args) {
         //Create map and add items to map
         Map<String, Object> myMap = new HashMap<>();
         myMap.put("Continent", "North America");
