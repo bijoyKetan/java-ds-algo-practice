@@ -22,6 +22,7 @@ public class LC88_MergeSortedArray {
         }
         //if m has been reached
         if (m == nums1Index) System.arraycopy(nums2, nums2Index, temp, tempCount, n-nums2Index);
+        //else if n has been reached
         else if(n == nums2Index) System.arraycopy(nums1, nums1Index, temp, tempCount, m-nums1Index);
         System.arraycopy(temp, 0, nums1, 0, nums1.length);
         System.out.println(Arrays.toString(nums1));
