@@ -1,21 +1,23 @@
 package core;
 
-/**
- * Common String methods:
- * charAt(i) -> the character in this String at a given index
- * contains(str) -> true if this String contains the other's characters inside it
- * endsWith(str) -> true if this String ends with the other's characters
- * equals(str) -> true if this String is the same as str
- * equalsIgnoreCase(str) -> true if this String is the same as str, ignoring capitalization
- * indexOf(str) -> first index in this String where given String begins (-1 if not found)
- * lastIndexOf(str) ->  last index in this String where given String begins (-1 if not found)
- * length() -> number of characters in this String
- * startsWith(str) ->  true if this String begins with the other's characters
- * substring(i, j) ->  characters in this String from index i (inclusive) to j (exclusive)
- * toLowerCase(), toUpperCase() -> a new String with all lowercase or uppercase letters
- * String.valueOf(number) -> converts the number (int, float, double etc.) to string
- * Integer.valueOf(String) -> converts the string to int. Could also be Double.valueOf(String)
- * String str = 1 + ""; -> Number + "" -> String.
+/*
+  Common String methods:
+  charAt(i) -> char in this String at i
+  contains(str) -> boolean
+  endsWith(str) -> boolean
+  equals(str) -> case sensitive equality
+  equalsIgnoreCase(str) -> case insensitive equality check
+  indexOf(str) -> first index where str starts (else -1)
+  lastIndexOf(str) ->  last index where str starts (else -1)
+  length() -> number of chars
+  startsWith(str) ->  boolean
+  substring(i, j) ->  i (inclusive) to j (exclusive)
+  toLowerCase() -> new str with all lowercase
+  toUpperCase() -> new str with all uppercase
+  String.valueOf(number) -> number to string
+  Integer.valueOf(String) -> String to integer
+  Double.valueOf(String) -> String to double
+  String str = 1 + ""; -> Number + "" -> String.
  */
 
 public class StringCore {
@@ -86,7 +88,7 @@ public class StringCore {
         String someNum = "33";
         int someNumInt = Integer.parseInt(someNum); // -> 33
         System.out.println(someNum);
-        
+
 
         //*****************//
         //  STRING BUILDER //
