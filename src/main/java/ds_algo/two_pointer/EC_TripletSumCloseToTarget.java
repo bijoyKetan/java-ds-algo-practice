@@ -32,7 +32,7 @@ class TripletSumCloseToTarget {
             right = arr.length - 1;
 
             while (left < right) {
-                sum = arr[i] + arr[left] + arr[right];
+                sum = arr[i] + arr[left] + arr[right]; //this may overflow (can be big number)
                 diff = targetSum - sum;
                 if (sum == targetSum) {
                     return sum;
@@ -54,11 +54,47 @@ class TripletSumCloseToTarget {
         return closestSum;
     }
 
+    
+    public int searchTriplet2(int[] arr, int targetSum) {
+
+        Arrays.sort(arr);
+        int left, right;
+        int closestDiff = Integer.MAX_VALUE;
+
+        for (int i = 0; i < arr.length - 2; i++) {
+            left = i + 1;
+            right = arr.length - 1;
+
+            while (left < right) {
+                int diff = targetSum - arr[i] - arr[left] - arr[right];
+                if (diff == 0) {
+                    return targetSum;
+                } else if (diff > 0) {
+                    if (diff < closestDiff) {
+                        closestDiff = diff;
+                    }
+                    left++;
+                } else {
+                    if (Math.abs(diff) < closestDiff) {
+                        closestDiff = diff;
+                    }
+                    right--;
+                }
+
+            }
+        }
+        return targetSum - closestDiff;
+    }
+
 
     @Test
     void testTripletSumCloseToTarget() {
         System.out.println(searchTriplet(new int[]{-2, 0, 1, 2}, 2)); //1
         System.out.println(searchTriplet(new int[]{-3, -1, 1, 2}, 1)); //0
         System.out.println(searchTriplet(new int[]{1, 0, 1, 1}, 100)); //3
+
+        System.out.println(searchTriplet2(new int[]{-2, 0, 1, 2}, 2)); //1
+        System.out.println(searchTriplet2(new int[]{-3, -1, 1, 2}, 1)); //0
+        System.out.println(searchTriplet2(new int[]{1, 0, 1, 1}, 100)); //3
     }
 }
