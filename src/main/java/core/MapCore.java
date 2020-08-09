@@ -15,6 +15,7 @@ public class MapCore {
         map.getOrDefault("k3", "defaultVal"); // => defaultVal, since k3 absent
         map.putIfAbsent("k3", "v3"); //=> v3.  Added k3,v3 (if k3 were absent)
         map.remove("k2"); // => v2. Removed the key value pair
+        Map.Entry<String, String> entry = new AbstractMap.SimpleEntry<>("k5", "v5");
         map.entrySet(); // [k1=v1, k3=v3]. Set of the entries.
         map.keySet(); // [k1, k3]. Set of keys
         map.values();// [v1, v3]. Collection of values. Will include all values, including duplicates.
