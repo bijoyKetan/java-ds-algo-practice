@@ -1,8 +1,52 @@
 package core;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class ArrayCore {
+
+    @Test
+    public void arrayTest() {
+        int[] arr = {1, 2, 3, 4, 5};//=> Initialization of a an int array
+        //arr[x] = y ; Assigns y to the xth index of arr
+
+        int[] arr2 = new int[arr.length]; //array of length 5
+        Arrays.fill(arr2, 0);// fills array2 with 0 => [0,0,0,0,0]
+
+        //Array copying
+        // All methods use System.arraycopy() under the hood. Creates shallow copy for non-primitive arrays
+        Arrays.copyOf(arr, arr.length); //From index 0 till length.  => [1,2,3,4,5]
+        Arrays.copyOfRange(arr, 0, arr.length); // Arrays.copyOfRange(src, startInclusive, endExclusive)
+        arr.clone(); // Using the object.clone() method. => [1,2,3,4,5]
+        int[] arr6 = new int[arr.length];
+        System.arraycopy(arr, 0, arr6, 0, arr.length);
+        // System.arraycopy(src, srcStart, dst, dstStart, length) => void
+
+        //Shallow copy example
+        String[] strA = {"Alan", "Becky", "Chloe"};
+        String[] strB = strA;
+        strA[0] = "newAlan";// strB[0] is now also newAlan
+
+        //Sorting.
+        // Java uses Merge sort or Time sort depending on the version
+        // O(n log n) time and O(n) space
+        int[] arr7 = {7, 5, 8, 3, 8, 9};
+        Arrays.sort(arr7); //[3, 5, 7, 8, 8, 9]  void method.
+
+        int[][] arr2dA = {{5, 1}, {7, 1}, {8, 1}, {2, 1}};
+        Arrays.sort(arr2dA, (a, b) -> Integer.compare(a[0], b[0]));
+        //Arrays.sort(arr2dA, Comparator.comparingInt(a -> a[0]));
+        //Collection.sort(theList, (a,b) -> Double.compare(a.get(0), b.get(0)));
+        List<List<Double>> list = Arrays.asList(
+                Arrays.asList(5.1, 2.1, 6.7),
+                Arrays.asList(4.1, 2.1, 6.7),
+                Arrays.asList(6.1, 2.3, 6.7));
+        Collections.sort(list, (a, b) -> Double.compare(a.get(0), b.get(0)));
+        //[[4.1, 2.1, 6.7], [5.1, 2.1, 6.7], [6.1, 2.3, 6.7]]
+    }
 
     public static void main(String[] args) {
         /*
@@ -70,5 +114,11 @@ public class ArrayCore {
         int[] arr5 = {3, 4, 2, 6, 9, 2, 5, 3};
         Arrays.sort(arr5);
         System.out.println("arr5 (sorted): " + Arrays.toString(arr5));
+
+        //Compare elements in 2d arrays
+        int[][] arrayA = new int[][]{{4, 2, 3}, {9, 7, 8}};
+        System.out.println(Arrays.toString(arrayA));
+        //two-dimensional array in Java is nothing but an array of a one-dimensional array,
+        //you can also create a two-dimensional array where individual one-dimensional arrays have different length,
     }
 }
