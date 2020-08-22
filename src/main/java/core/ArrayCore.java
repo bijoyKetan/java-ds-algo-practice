@@ -46,6 +46,13 @@ public class ArrayCore {
                 Arrays.asList(6.1, 2.3, 6.7));
         Collections.sort(list, (a, b) -> Double.compare(a.get(0), b.get(0)));
         //[[4.1, 2.1, 6.7], [5.1, 2.1, 6.7], [6.1, 2.3, 6.7]]
+
+        //Array to list and list to array
+        Integer[] arrTest1 ={1,2,3,4,5};
+        //Following will not work if arrTest1 was int[]
+        List<Integer> listTest1 = Arrays.asList(arrTest1);
+        Integer[] arrTest2 = listTest1.toArray(new Integer[0]);
+
     }
 
     public static void main(String[] args) {

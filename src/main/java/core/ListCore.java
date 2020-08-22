@@ -3,7 +3,6 @@ package core;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 /*
 Basic facts:
@@ -11,6 +10,7 @@ Basic facts:
 - Dynamic resizing: When a list needs to be grown, all the elements are copied automatically to another bigger list.
 - Retrieval and insertion -> O(1)
 - Lists cannot contain primitives (so no int, but Integer).
+- list.add() vs list.add(index, element) vs list.set (index, element)
  */
 
 public class ListCore {
