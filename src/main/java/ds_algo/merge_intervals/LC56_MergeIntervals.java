@@ -11,30 +11,33 @@ public class LC56_MergeIntervals {
     public int[][] merge(int[][] intervals) {
 
         //Sort the arrays by the first item
-        //Have a list of results, List<int[]>
-        //Iterate over the sorted arrays
-        //Add the first item to the result list
-        //Compare the current array element vs the last item in merged interval
-        //For non-overlapping lists, add the element to result
-        //For overlapping lists, merge the last item in result to element
-        //Merge -> [start of the prevMerged, Math.max(end of prevMerged, end of element)]
-        //Finally convert the list to an array and output that
+        //Declare a list of results, List<int[]>
+        //Var newInterval tracks resultLists's last item
+        //Iterate over the sorted arrays (int[] interval:intervals)
+        //Compare interval[0] vs. newInterval[1]
+        //interval[0] > newInterval[1] => non overlapping
+        //If non-overlapping, add interval to result
+        //If overlapping, merge newInterval to interval
+        //Merge -> set newInterval[1] to Math.max(interval[1], newInterval[1])
+        //Convert resultList to array, results.toArray(new int[0][])
 
         List<int[]> results = new ArrayList<>();
         if (intervals.length < 2) {
             return intervals;
         }
 
-        //2d array sort
         Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+        //newInterval refers to the last item in results list
         int[] newInterval = intervals[0];
         results.add(newInterval);
-        for (int i = 0; i < intervals.length; i++) {
-            int lastItem = results.size() - 1;
-            if (intervals[i][0] > results.get(lastItem)[1]) {
-                results.add(intervals[i]); //non overlapping intervals
-            } else { //Overlapping intervals
-                results.set(lastItem, new int[]{results.get(lastItem)[0], Math.max(results.get(lastItem)[1], intervals[i][1])});
+        for (int[] interval : intervals) {
+            //non overlap case
+            if (interval[0] > newInterval[1]) {
+                newInterval = interval;
+                results.add(newInterval);
+            } else {
+                //overlap - change just the end value of newInterval
+                newInterval[1] = Math.max(newInterval[1], interval[1]);
             }
         }
         //list to array conversion
