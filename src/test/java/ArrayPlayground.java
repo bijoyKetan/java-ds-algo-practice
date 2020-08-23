@@ -30,5 +30,10 @@ public class ArrayPlayground {
         int[] arr4 = Arrays.copyOf(arr, 3);
         System.out.println(Arrays.toString(arr4));
 
+        //2D array
+        int[][] multiArray = new int[3][];
+        multiArray[multiArray.length-1] = new int[]{4,5,4};
+        System.out.println(multiArray.length); //3
+        System.out.println(Arrays.toString(multiArray[multiArray.length -1])); // [4,5,4]
     }
 }
