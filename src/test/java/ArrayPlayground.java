@@ -1,8 +1,12 @@
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class ArrayPlayground {
+    private static final Logger log = LoggerFactory.getLogger(ArrayPlayground.class);
 
     //Arrays.copyOf(srcArr, length) => returns new array. if length > srcArray, then the rest will be filled with 0
     //Arrays.copyOfRange(srcArr, startIndex, endIndex) => returns new array. Start inclusive, end exclusive. If end> srcArr.length, rest filled with 0
@@ -32,8 +36,33 @@ public class ArrayPlayground {
 
         //2D array
         int[][] multiArray = new int[3][];
-        multiArray[multiArray.length-1] = new int[]{4,5,4};
+        multiArray[multiArray.length - 1] = new int[]{4, 5, 4};
         System.out.println(multiArray.length); //3
-        System.out.println(Arrays.toString(multiArray[multiArray.length -1])); // [4,5,4]
+        System.out.println(Arrays.toString(multiArray[multiArray.length - 1])); // [4,5,4]
+    }
+
+    @Test
+    public void testSortingArrays() {
+        int[][] testArray = new int[][]{{3, 4}, {2, 3}, {5, 6}, {2, 3}};
+        Arrays.sort(testArray, (a, b) -> a[0] - b[0]);
+        Arrays.sort(testArray, (a, b) -> {
+            if (a[1] == b[1]) return a[1] - b[1];
+            else return a[0] - b[0];
+        });
+        for (int[] item : testArray) {
+            System.out.println(Arrays.toString(item));
+        }
+    }
+
+    @Test
+    public void testSortList() {
+        List<List<Integer>> testList = Arrays.asList(
+                Arrays.asList(3, 4),
+                Arrays.asList(2, 3),
+                Arrays.asList(5, 5),
+                Arrays.asList(2, 3)
+        );
+
+        testList.sort((a, b) -> a.get(1) - b.get(1));
     }
 }
