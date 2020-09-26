@@ -1,8 +1,6 @@
 package core;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /*
 Basic facts:
@@ -15,49 +13,54 @@ Basic facts:
 
 public class ListCore {
     public static void main(String[] args) {
+        List<String> list = new ArrayList<>(Arrays.asList("Asia", "Europe", "Australia"));
+        List<String> list2 = new ArrayList(Arrays.asList("USA", "Canada", "Mexico"));
+        List<String> immutableList = Arrays.asList("Sam", "Ben", "Adam"); //Can't be modified
 
-        //Create the DS
-        List<String> myList = new ArrayList<>();
+        list.add("Antarctica"); //add
+        list.add(0, "Africaaa"); //add at an index
+        list.set(0, "Africa"); //Update -> [Africa, Asia, Europe, Australia, Antarctica]
+        list.addAll(list2); //[Africa, Asia, Europe, Australia, Antarctica, USA, Canada, Mexico]
 
-        //Add items to list & print the result
-        myList.add("Africa");
-        myList.add("Asia");
-        myList.add("North America");
-        myList.add("Europe");
-        myList.add("Antarctica");
-        myList.add("Australia");
-        myList.add("South America");
-        System.out.println("myList is ->  " + myList);
-        System.out.println("The datatype is " + myList.getClass().getSimpleName());
+        list.indexOf("USA"); //5
+        list.indexOf("TATA"); //-1, doesn't exist
+        list.lastIndexOf("Mexico"); // 7, for multiple results, last index
 
+        list.remove("Asia"); // [Africa, Europe, Australia, Antarctica, USA, Canada, Mexico]
+        list.remove(0); // [Europe, Australia, Antarctica, USA, Canada, Mexico]
+        list.removeAll(list2); // [Europe, Australia, Antarctica]
 
-        //Create the same DS in a different way - note this creates an immutable list
-        List<String> yourList = Arrays.asList("Sam", "Ben", "Adam", "Matt", "Nick");
-        System.out.println("Second List is" + yourList);
+        list2.isEmpty(); //false
+        list2.clear(); //Removes all elements and makes it empty
+        list2.isEmpty(); // true
 
-        //To make the above list mutable
+        //collection.iterator
+        Iterator<String> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            //do something with each element
+            String item = iterator.next();
+            System.out.println(item);
+        }
 
-        //Access first and last item
-        String firstElement = myList.get(0);
-        String lastElement = myList.get(myList.size() - 1);
-        System.out.println("The first element is -> " + firstElement +
-                "\nThe last element is -> " + lastElement);
+        List<String> list3 = new ArrayList(Arrays.asList("NYC", "Cairo", "Moscow", "NYC", "LA"));
+        Set<String> set = new HashSet<>(list3); //Removes duplicates
+        //Cairo, LA, NYC, Moscow]
 
-        //Access an item by value
-        int isAfrica = myList.indexOf("Africa");
-        int isRand = myList.indexOf("Rand");
-        System.out.println("isRand present ->  " + isRand);
+        //List of start and end times
+        //Sort by end times and then by start times
+        List<int[]> intervals = new ArrayList<>(Arrays.asList(new int[][]{{7, 9}, {4, 9}, {5, 8}}));
+        intervals.sort((e1, e2) -> {
+            if (e1[1] != e2[1]) return e1[1] - e2[1];
+            else return e1[0] - e2[0];
+        }); // [5,8], [4,9], [7,9]
 
-        //Iterate through the list and print all elements
-        for (String cont : myList) System.out.println("Index: " + myList.indexOf(cont) + " value: " + cont);
-
-        //Remove certain items from DS
-        myList.removeAll(myList.subList(1, 4));
-        System.out.println(myList);
-
-        //Is DS empty
-        //boolean isEmp = myList.isEmpty();
-        System.out.println(myList.isEmpty());
-
+        //Sorting by multiple conditions
+        //First by the last elements, then by the second elements and then by the first elements
+        List<int[]> intervals2 = new ArrayList<>(Arrays.asList(new int[][]{{7, 9, 10}, {4, 9, 11}, {3, 9, 11}}));
+        intervals2.sort((e1, e2) -> {
+            if (e1[2] != e2[2]) return e1[2] - e2[2];
+            else if (e1[1] != e2[1]) return e1[1] - e2[1];
+            else return e1[0] - e2[0];
+        }); //[7, 9, 10], [3, 9, 11], [4, 9, 11]
     }
 }
