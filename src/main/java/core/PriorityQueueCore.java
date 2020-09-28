@@ -17,6 +17,4 @@ public class PriorityQueueCore {
         minHeap.poll(); //Bo
         // Post polling ->  Tom, Cathy, Robert
     }
-
-
 }
