@@ -23,7 +23,5 @@ public class CollectionPlayground {
         //sampleList.set(2, 3);
         sampleList.set(sampleList.lastIndexOf(2), 3);
         System.out.println(sampleList.toString());
-
-
     }
 }
