@@ -24,4 +24,9 @@ public class CollectionPlayground {
         sampleList.set(sampleList.lastIndexOf(2), 3);
         System.out.println(sampleList.toString());
     }
+
+    @Test
+    public void typeCheck(){
+
+    }
 }
