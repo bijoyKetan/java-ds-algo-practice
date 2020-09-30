@@ -7,6 +7,9 @@ import java.util.Arrays;
 public class MergeSortedArrays {
 
     public int[] merge(int[] leftArray, int[] rightArray) {
+        if (leftArray.length == 0) return rightArray;
+        if (rightArray.length == 0) return leftArray;
+
         int leftSize = leftArray.length;
         int rightSize = rightArray.length;
         int[] result = new int[leftSize + rightSize];
