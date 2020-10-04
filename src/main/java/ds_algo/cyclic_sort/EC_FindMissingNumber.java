@@ -1,4 +1,4 @@
-package cyclic_sort;
+package ds_algo.cyclic_sort;
 
 class EC_FindMissingNumber {
 

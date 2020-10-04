@@ -1,4 +1,4 @@
-package cyclic_sort;
+package ds_algo.cyclic_sort;
 
 import org.junit.jupiter.api.Test;
 
