@@ -3,6 +3,7 @@ package core;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class TipsTricks {
 
@@ -88,5 +89,16 @@ public class TipsTricks {
                 i++;
             }
         }
+    }
+
+    @Test
+    public void getRangeOfInts(){
+        //A list of even integers from 0 to 10 (NOT including 10)
+        List<Integer> list = new ArrayList<>();
+        IntStream.range(0, 10).forEach(x -> {
+            if (x%2==0) list.add(x);
+        });
+        System.out.println(list.toString());
+        //[0, 2, 4, 6, 8]
     }
 }
