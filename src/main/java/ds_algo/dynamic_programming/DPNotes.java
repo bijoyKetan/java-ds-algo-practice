@@ -69,4 +69,18 @@ public class DPNotes {
         log.info("FibTopDown(10) is: " + fibTopDown(10));//55
         log.info("FibBottomUp(10) is: " + fibBottomUp(10));//55
     }
+
+    @Test
+    public void testDP(){
+        // Changing parameters
+        // State transition equation
+        // Base cases & boundary conditions
+        // Memoization table
+
+        //int[][] 2dArr = new int[row][col]
+        int[][] test2DArr = new int[][]{{1,2,3}, {4,5, 6}};
+        System.out.println(test2DArr[0][1]);
+
+
+    }
 }
