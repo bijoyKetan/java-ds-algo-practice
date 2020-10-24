@@ -31,6 +31,13 @@ public class TipsTricks {
             var value = e.getValue();
             System.out.format("%s : %s\n", key, value);
         }
+
+        //Iterate map in Java 8 way
+        //Note: for void functions use forEach.
+        // Otherwise use standard map function with streams
+        map.forEach((k, v) -> {
+            System.out.println(String.format("Key is %s & value is %s", k, v));
+        });
     }
 
 
@@ -92,13 +99,29 @@ public class TipsTricks {
     }
 
     @Test
-    public void getRangeOfInts(){
+    public void getRangeOfInts() {
         //A list of even integers from 0 to 10 (NOT including 10)
         List<Integer> list = new ArrayList<>();
         IntStream.range(0, 10).forEach(x -> {
-            if (x%2==0) list.add(x);
+            if (x % 2 == 0) list.add(x);
         });
         System.out.println(list.toString());
         //[0, 2, 4, 6, 8]
+    }
+
+    @Test
+    //Sample code to access the digits of an integer
+    public void digitsOfInteger() {
+        int num = 12345;
+        Deque<Integer> stack = new ArrayDeque<>();
+        while (num > 0) {
+            stack.push(num % 10);
+            num /= 10;
+        }
+
+        //Iterating a stack gives items in LIFO order
+        for (int i : stack) {
+            System.out.println("Num is " + i);
+        }
     }
 }
