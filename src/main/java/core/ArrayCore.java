@@ -6,6 +6,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/*
+- Using Arrays.asList () you can efficiently create tuples
+- Object returned by Arrays.asList (array), is partially mutable:
+can change existing entries, but cannot add or delete entries
+- Arrays.asList(array) returns an adapter around the original array.
+- Arrays.asList(new Integer[]1,2,4)
+- Copy array: Arrays .copyOf (A , A.length).
+ */
+
 public class ArrayCore {
 
     @Test

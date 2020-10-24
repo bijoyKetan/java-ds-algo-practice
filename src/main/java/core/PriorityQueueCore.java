@@ -72,17 +72,11 @@ public class PriorityQueueCore {
 
     @Test
     public void testMergeKSorted() {
-//        int[] arr1 = new int[]{1, 2, 3};
-//        int[] arr2 = new int[]{5, 8, 9};
-//        int[] arr3 = new int[]{4, 6, 7};
-
         int[] arr1 = new int[]{1};
         int[] arr2 = new int[]{2, 5, 8};
         int[] arr3 = new int[]{3, 6, 9};
         int[][] arr = new int[][]{arr2, arr1, arr3};
         System.out.println(Arrays.toString(mergeKSortedArrays(arr)));
-
-
     }
 }
 

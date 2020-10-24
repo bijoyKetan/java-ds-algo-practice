@@ -11,6 +11,10 @@ Basic facts:
 - list.add() vs list.add(index, element) vs list.set (index, element)
  */
 
+//add('A’), add(2,3.14), addAll(C), addAll(8,C), clearO, contains(2.71), get(12),
+// index0f(289), isEmptyO, iteratorO, listlteratorO, remove(l), removeAll(C),
+// retainAll(C), set(3,42), subListfl , 5), and toArrayO
+
 public class ListCore {
     public static void main(String[] args) {
         List<String> list = new ArrayList<>(Arrays.asList("Asia", "Europe", "Australia"));
