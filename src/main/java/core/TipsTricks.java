@@ -124,4 +124,21 @@ public class TipsTricks {
             System.out.println("Num is " + i);
         }
     }
+
+    @Test
+    public void testBreakStatement() {
+        //when break condition == true, break out of the
+        // for/while loop right above the if condition
+        int i = 0;
+        List<Integer> results = new ArrayList<>();
+        while (i < 10) {
+            results.add(i);
+            if (i == 7) {
+                break;
+            }
+            i++;
+        }
+        System.out.println(results.toString());
+        //[0, 1, 2, 3, 4, 5, 6, 7]
+    }
 }
