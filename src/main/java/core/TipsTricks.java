@@ -141,4 +141,27 @@ public class TipsTricks {
         System.out.println(results.toString());
         //[0, 1, 2, 3, 4, 5, 6, 7]
     }
+
+    @Test
+    public void testWhileLoopCond() {
+        boolean isResult = false;
+        int n = 19;
+        Set<Integer> sumSet = new HashSet<>();
+        int sum = n;
+        while (!sumSet.contains(sum)) {
+            //sum = doSomething(sum); // incorrect location to change the sum
+            // 1. Add first to a tracker
+            // 2. Check or success
+            // 3. Modify
+            sumSet.add(sum);
+            if (sum == 1) {
+                isResult = true;
+            }
+            sum = doSomething(sum); //Correct place to modify the sum
+        }
+    }
+
+    private int doSomething(int sum) {
+        return 0;
+    }
 }
