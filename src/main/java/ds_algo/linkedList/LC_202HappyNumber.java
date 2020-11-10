@@ -26,10 +26,27 @@ public class LC_202HappyNumber {
         return sum;
     }
 
+
+    //solving the problem with constant space
+    public boolean findConstantSpace(int num) {
+        int slow = num;
+        int fast = sumSquare(num);
+        while (fast != slow) {
+            if (fast == 1) return true;
+            slow = sumSquare(slow);
+            fast = sumSquare(sumSquare(fast));
+        }
+        return false;
+    }
+
+
     @Test
     public void testHappyNum() {
         System.out.println(find(23));
         System.out.println(find(12));
+
+        System.out.println(findConstantSpace(23));
+        System.out.println(findConstantSpace(12));
     }
 
     @Test
