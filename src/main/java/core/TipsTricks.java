@@ -99,6 +99,16 @@ public class TipsTricks {
     }
 
     @Test
+    //Succinct way to return boolean on two conditions
+    public void returnBooleanSuccinct() {
+        int n = 1;
+        // if n == 1 then return true;
+        //else return false
+        System.out.println((n == 1));
+    }
+
+
+    @Test
     public void getRangeOfInts() {
         //A list of even integers from 0 to 10 (NOT including 10)
         List<Integer> list = new ArrayList<>();
@@ -123,6 +133,19 @@ public class TipsTricks {
         for (int i : stack) {
             System.out.println("Num is " + i);
         }
+    }
+
+    @Test
+    //do something with each of the digits of a number
+    public void sumSquare() {
+        int num = 23;
+        int sum = 0;
+        while (num > 0) {
+            //Math.pow -> Double
+            sum += (int) Math.pow(num % 10, 2);
+            num = num / 10;
+        }
+        System.out.println(sum);
     }
 
     @Test
