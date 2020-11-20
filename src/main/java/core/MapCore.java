@@ -25,6 +25,12 @@ public class MapCore {
         map.size(); //
         //map.putAll(map2); // void. add all key-values of map2 to map
         map.clear();// void. Removes all key-values of map.
+        //Iterate though key and value pairs
+        map.forEach((k, v) -> {
+            //do something
+        });
+        map.putIfAbsent("someKey", "someValue");//put key-val if key doesn't exist
+        map.getOrDefault("key", map.get("key") + 1);//Frequency map
     }
 
     public static void main(String[] args) {
@@ -42,19 +48,22 @@ public class MapCore {
         //Remove a key-value pair
         myMap.remove("RedundantInfo");
 
-        //Method 1 - Iterate over the map and get the keys and values
+        //Method 1 - Java 8 style foreach followed by do something
         List<String> listMapKeys = new ArrayList<>();
         List<Object> listMapValues = new ArrayList<>();
+        myMap.forEach((k, v) -> {
+            //Do something
+            listMapKeys.add(k);
+            listMapValues.add(v);
+        });
+
+        //Method 2 - Iterate over the map and get the keys and values
+        List<String> listMapKeys2 = new ArrayList<>();
+        List<Object> listMapValues2 = new ArrayList<>();
         for (Map.Entry<String, Object> e : myMap.entrySet()) {
             listMapKeys.add(e.getKey());
             listMapValues.add(e.getValue());
         }
-
-        //Method 2- Iterate over the map and get the keys and values
-        // map.keySet() -> returns set
-        // map.values() -> returns collection
-        Set<String> listMapKeys2 = myMap.keySet();
-        List<Object> listMapValues2 = new ArrayList<>(myMap.values());
 
         //Method 3 - Iterate over the map and get the keys and values
         //Collection.Iterator()
@@ -69,6 +78,11 @@ public class MapCore {
             listIteratorKeys.add(e.getKey());
             listIteratorValues.add(e.getValue().toString());
         }
+
+        // map.keySet() -> returns set
+        // map.values() -> returns collection
+        Set<String> listMapKeys3 = myMap.keySet();
+        List<Object> listMapValues4 = new ArrayList<>(myMap.values());
 
         //Create a countMap using getOrDefault(key, defaultValue)
         char[] charArray = {'a', 'e', 'o', 'a', 'e', 'z'};
@@ -115,6 +129,7 @@ public class MapCore {
         //Note that Set is good with distinct items, but
         //if the items need to be removed and a count is required, use dictionary
 
+        ////////////////////////////////////////////////////////////////////
 
         //Print the results
         System.out.println("Original Map: " + myMap.toString() + "\n");

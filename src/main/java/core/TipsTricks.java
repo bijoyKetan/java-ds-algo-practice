@@ -228,4 +228,14 @@ public class TipsTricks {
     private int doSomething(int sum) {
         return 0;
     }
+
+    //A trick for quickly checking for zero condition (often used in DP)
+    public void testIfOneIsZero(){
+        int a = 0;
+        int b = 5;
+        int result;
+        if (a * b == 0){
+            result = a + b;
+        }
+    }
 }
