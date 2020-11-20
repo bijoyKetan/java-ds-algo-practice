@@ -52,12 +52,12 @@ public class DPNotes {
     //No issue with stack overflow
 
     public int fibBottomUp(int n) {
-        int[] results = new int[n+1];
+        int[] results = new int[n + 1];
         if (n < 0) return -1;
         results[0] = 0;
         results[1] = 1;
         for (int i = 2; i < n + 1; i++) {
-            results[i] = results[i-1] + results[i-2];
+            results[i] = results[i - 1] + results[i - 2];
         }
         return results[n];
     }
@@ -71,16 +71,28 @@ public class DPNotes {
     }
 
     @Test
-    public void testDP(){
+    public void testDP() {
         // Changing parameters
         // State transition equation
         // Base cases & boundary conditions
         // Memoization table
 
         //int[][] 2dArr = new int[row][col]
-        int[][] test2DArr = new int[][]{{1,2,3}, {4,5, 6}};
+        int[][] test2DArr = new int[][]{{1, 2, 3}, {4, 5, 6}};
         System.out.println(test2DArr[0][1]);
+    }
 
+    @Test
+    public void testGrid() {
+        int[][] grid = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        //int[rows][cols]
+//        for (int[] row : grid) {
+//            System.out.println(Arrays.toString(row));
+//        }
 
+        System.out.println(Arrays.toString(grid[grid.length - 1])); //[7,8,9]
+        System.out.println(grid[0][2]);//3
+        //Infinity = Integer.MAX_VALUE; for 32 bit signed integer -> 2 ^ 31 - 1
+        System.out.println(Integer.MAX_VALUE - (int) Math.pow(2, 31) + 1);
     }
 }
