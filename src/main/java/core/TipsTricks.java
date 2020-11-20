@@ -1,5 +1,6 @@
 package core;
 
+import core.Util.ListNode;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -133,6 +134,46 @@ public class TipsTricks {
         for (int i : stack) {
             System.out.println("Num is " + i);
         }
+    }
+
+    @Test
+    //To end a function without doing anything (e.g. void), simply return;
+    public void demoReturn() {
+        ListNode head = null;
+        if (head == null || head.next == null) {
+            System.out.println("Return demo");
+            return;
+        }
+        //The following will not be executed if return condition is met
+        int a = 10;
+        System.out.println(String.format("The value of a is, %s", a));
+    }
+
+    //LinkedList reversal
+    public ListNode reverse(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+        ListNode next = head;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+
+    //Find middle of a linkedList
+    public ListNode findMiddleLinkedList(ListNode head) {
+        if (head == null || head.next == null)
+            return head;
+
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
     }
 
     @Test
