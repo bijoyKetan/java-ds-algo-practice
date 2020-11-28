@@ -62,6 +62,10 @@ public class Core_Knapsack01 {
 
         //Initialize the set of values/items that will be picked/not picked
         //Initialize 0th row by iterating through range(0, target+1)
+
+
+        //Common mistake  - in this block of code, target => i and
+        // we're comparing item[0], i.e. the first item
         for (int i = 0; i <= capacity; i++) {
             if (weights[0] <= i) {
                 dp[0][i] = profits[0];
