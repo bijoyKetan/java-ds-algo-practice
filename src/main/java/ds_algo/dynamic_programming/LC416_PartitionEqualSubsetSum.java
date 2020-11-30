@@ -16,12 +16,12 @@ public class LC416_PartitionEqualSubsetSum {
 
         //Fill out first col
         //dp[row][0] -> Col fixed at 0
-        for(int i = 0; i< nums.length; i++){
+        for (int i = 0; i < nums.length; i++) {
             dp[i][0] = 0;
         }
 
         //fill out first row
-        for (int i = 0; i <= target; i++){
+        for (int i = 0; i <= target; i++) {
             if (nums[0] <= i) {
                 dp[0][i] = nums[0];
             }

@@ -1,5 +1,6 @@
 package ds_algo.dynamic_programming;
 
+import core.Util.HelperMethods;
 import org.junit.jupiter.api.Test;
 
 public class Core_Knapsack01 {
@@ -44,6 +45,39 @@ public class Core_Knapsack01 {
         memo[index][capacity] = maxProfit;
         return maxProfit;
     }
+
+
+    //Bottom up DP with 0th item and 0th sum
+    // i -> item and index (rows)
+    // j -> Target/sum
+    public int solveKnapsackDpWith0ThItem(int[] profits, int[] weights, int capacity) {
+
+        int[][] dp = new int[profits.length + 1][capacity + 1];
+
+        for (int i = 0; i <= profits.length; i++) {
+            for (int j = 0; j <= capacity; j++) {
+                //fill the 0th row (no item )
+                if (i == 0) {
+                    dp[0][j] = 0;
+                }
+                //fill the 0th col (target == 0)
+                else if (j == 0) {
+                    dp[i][0] = 0;
+                }
+                //Exclusion
+                else if (weights[i - 1] > j) {
+                    dp[i][j] = dp[i - 1][j];
+                }
+                //Inclusion
+                else {
+                    dp[i][j] = profits[i - 1] + dp[i - 1][j - weights[i - 1]];
+                }
+            }
+        }
+        HelperMethods.print2DArray(dp);
+        return dp[profits.length][capacity];
+    }
+
 
     //Decision making DP template
     public int solveKnapsackDp(int[] profits, int[] weights, int capacity) {
@@ -90,6 +124,7 @@ public class Core_Knapsack01 {
                 dp[row][col] = Math.max(profit0, profit1);
             }
         }
+        HelperMethods.print2DArray(dp);
         //Return the last item
         return dp[m - 1][capacity];
     }
@@ -99,14 +134,19 @@ public class Core_Knapsack01 {
     public void test() {
         int[] profits = {1, 6, 10, 16};
         int[] weights = {1, 2, 3, 5};
-        int maxProfit = solveKnapsackRecursive(profits, weights, 7);
-        System.out.println("Total knapsack profit 1 with recursion ---> " + maxProfit);//22
-        maxProfit = solveKnapsackRecursive(profits, weights, 6);
-        System.out.println("Total knapsack profit 2 with recursion ---> " + maxProfit);//17
-
+//        int maxProfit = solveKnapsackRecursive(profits, weights, 7);
+//        System.out.println("Total knapsack profit 1 with recursion ---> " + maxProfit);//22
+//        maxProfit = solveKnapsackRecursive(profits, weights, 6);
+//        System.out.println("Total knapsack profit 2 with recursion ---> " + maxProfit);//17
+//
         int maxProfit2 = solveKnapsackDp(profits, weights, 7);
         System.out.println("Total knapsack profit 1 with DP ---> " + maxProfit2);//22
         maxProfit2 = solveKnapsackDp(profits, weights, 6);
         System.out.println("Total knapsack profit 2 with DP ---> " + maxProfit2);//17
+
+        int maxProfit3 = solveKnapsackDpWith0ThItem(profits, weights, 7);
+        System.out.println("Total knapsack profit 1 with DP ---> " + maxProfit3);//22
+        maxProfit3 = solveKnapsackDpWith0ThItem(profits, weights, 6);
+        System.out.println("Total knapsack profit 2 with DP ---> " + maxProfit3);//17
     }
 }
