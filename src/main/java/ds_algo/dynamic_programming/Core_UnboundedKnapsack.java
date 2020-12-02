@@ -18,6 +18,20 @@ public class Core_UnboundedKnapsack {
             inner loop -> choices
         4. Return answer
 
+        //Template
+        int[] dp = new int[target + 1];
+        Arrays.fill(dp, target + 1);
+
+        for (int i = 0; i <= target; i++) {
+            for (int item : items) { //item -> choice
+                if (i == 0) dp[i] = 0;
+                if (coin <= i) {
+                    dp[i] = Math.min(dp[i], dp[i - item] + 1);
+                }
+            }
+        }
+        return dp[target] == target + 1 ? -1 : dp[target];
+
      */
     public int coinChange1D(int[] coins, int amount) {
         //Need to build till target
