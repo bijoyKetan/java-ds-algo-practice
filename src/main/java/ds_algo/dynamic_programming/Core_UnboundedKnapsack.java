@@ -19,6 +19,7 @@ public class Core_UnboundedKnapsack {
         4. Return answer
 
         //Template
+        //dp[i] -> optimal sol for getting target == i
         int[] dp = new int[target + 1];
         Arrays.fill(dp, target + 1);
 
@@ -37,12 +38,15 @@ public class Core_UnboundedKnapsack {
         //Need to build till target
         int[] dp = new int[amount + 1];
         Arrays.fill(dp, amount + 1);
+        Arrays.sort(coins);
 
         for (int i = 0; i <= amount; i++) {
             for (int coin : coins) {
                 if (i == 0) dp[i] = 0;
                 if (coin <= i) {
                     dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+                } else {
+                    break; //Optimization, since coins are now sorted
                 }
             }
         }
