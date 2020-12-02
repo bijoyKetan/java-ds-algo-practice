@@ -74,7 +74,7 @@ public class Core_Knapsack01 {
                 }
             }
         }
-        HelperMethods.print2DArray(dp);
+        //HelperMethods.print2DArray(dp);
         return dp[profits.length][capacity];
     }
 
