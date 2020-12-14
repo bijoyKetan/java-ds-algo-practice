@@ -90,5 +90,63 @@ public class test {
         return sum;
     }
 
+    static class PrintArray {
 
+        public static void compute(int[] arr) {
+            // YOUR WORK HERE
+            computeHelper(arr, 0);
+        }
+
+        public static void computeHelper(int[] arr, int index) {
+            // YOUR WORK HERE
+            if (index >= arr.length) return;
+            System.out.println(arr[index]);
+            computeHelper(arr, index +1);
+        }
+    }
+
+    @Test
+    public void recursionTest(){
+        PrintArray.compute(new int[]{1,23,4,5,6});
+
+    }
+
+    public static String compute(String str) {
+        // YOUR WORK HERE
+        char[] arr = str.toCharArray();
+        return helper(arr, 0);
+    }
+
+    private static String helper(char[] arr, int index) {
+        if (index >= arr.length/ 2) return new String(arr);
+        char temp = arr[index];
+        arr[index] = arr[arr.length - index -1];
+        arr[arr.length - index -1] = temp;
+        return helper(arr, index +1);
+    }
+
+    @Test
+    public void recursionReverseTest(){
+        System.out.println(compute("ABCDEF"));
+    }
+
+    @Test
+    public void testMatrix() {
+        int[][] matrix = new int[][]{{1, 2, 3}, {4, 5, 6}};
+        int[][] dp = matrix.clone();
+        dp[0][0] = 9;
+        System.out.println(Arrays.toString(dp[0]));
+        System.out.println(Arrays.toString(matrix[0])); //Both are changed. Copy by reference
+    }
+
+    public int maxSquare(char[][] matrix){
+        int[][] dp = new int[matrix.length][matrix[0].length];
+        for (int i=0; i< matrix.length; i++){
+            for (int j = 0; j< matrix[0].length; j++){
+                dp[i][j] = Character.getNumericValue(matrix[i][j]);
+            }
+        }
+
+        return -1;
+    }
 }
