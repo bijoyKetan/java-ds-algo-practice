@@ -2,7 +2,7 @@ package ds_algo.dynamic_programming;
 
 import org.junit.jupiter.api.Test;
 
-public class LC221_Maximal_Square {
+public class Core_LC221_Maximal_Square {
     public int maximalSquare(char[][] matrix) {
 
         int row = matrix.length;
