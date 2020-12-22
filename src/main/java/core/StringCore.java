@@ -30,6 +30,19 @@ public class StringCore {
         a = a.toUpperCase(); // -> N!!*YORK
         a = a.toLowerCase(); // -> n!!*york
 
+        //Replacement
+        String sentence = "It's a man, it's a plane, it's superman.";
+        //convert to lowercase and remove punctuations
+        sentence = sentence
+                .toLowerCase()
+                .replaceAll("[,_!'.]", "");
+        //its a man its a plane its superman
+        //No need of escape characters inside []
+        //Each character is treated as literal inside [] and replaced
+        //Without [], escape character \\ needed e.g.
+        //sentence = sentence.replaceAll("\\.", "");
+
+
         /*
         Note: String in Java is immutable, but StringBuilder is immutable
         so, when a string is manipulated, a new string object is created in string pool and
