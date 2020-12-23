@@ -48,22 +48,35 @@ public class MapCore {
         //Remove a key-value pair
         myMap.remove("RedundantInfo");
 
-        //Method 1 - Java 8 style foreach followed by do something
         List<String> listMapKeys = new ArrayList<>();
         List<Object> listMapValues = new ArrayList<>();
-        myMap.forEach((k, v) -> {
-            //Do something
-            listMapKeys.add(k);
-            listMapValues.add(v);
-        });
 
-        //Method 2 - Iterate over the map and get the keys and values
+        //Method 1 - Iterate over the map and get the keys and values
         List<String> listMapKeys2 = new ArrayList<>();
         List<Object> listMapValues2 = new ArrayList<>();
+
+        //For both keys and values
         for (Map.Entry<String, Object> e : myMap.entrySet()) {
             listMapKeys.add(e.getKey());
             listMapValues.add(e.getValue());
         }
+
+        //For keys only
+        for (String s: myMap.keySet()){
+            //Do something with keys
+        }
+
+        //For values only
+        for (Object o: myMap.values()){
+            //Do something with values
+        }
+
+        //Method 2 - Java 8 style foreach followed by do something
+        myMap.forEach((k, v) -> {
+            //Do something, but cannot return anything
+            listMapKeys.add(k);
+            listMapValues.add(v);
+        });
 
         //Method 3 - Iterate over the map and get the keys and values
         //Collection.Iterator()
