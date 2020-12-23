@@ -8,29 +8,42 @@ public class MapCore {
 
     @Test
     public void mapTest() {
-        Map<String, String> map = new HashMap();
-        map.put("k1", "v1");
-        map.put("k2", "v2"); //Keys can't be duplicate or null. Values can be
-        map.get("k1"); // => v1. value of key k1
-        map.getOrDefault("k3", "defaultVal"); // => defaultVal, since k3 absent
-        map.putIfAbsent("k3", "v3"); //=> v3.  Added k3,v3 (if k3 were absent)
+        Map<String, Integer> map = new HashMap();
+        map.put("k1", 1);
+        map.put("k2", 1); //Keys can't be duplicate or null. Values can be
+        map.get("k1"); // => 1, value of key k1
+        //Frequency counting
+        map.put("k4", map.getOrDefault("k4", 0) + 1);
+        map.putIfAbsent("k3", 1);
         map.remove("k2"); // => v2. Removed the key value pair
-        Map.Entry<String, String> entry = new AbstractMap.SimpleEntry<>("k5", "v5");
+        Map.Entry<String, Integer> entry = new AbstractMap.SimpleEntry<>("k5", 5);
         map.entrySet(); // [k1=v1, k3=v3]. Set of the entries.
         map.keySet(); // [k1, k3]. Set of keys
-        map.values();// [v1, v3]. Collection of values. Will include all values, including duplicates.
+        map.values();// [v1, v3]. Collection of all (including dupes) values.
+        map.size();//size of map
         map.containsKey("k2"); //true
+        if (map.get("k") == null) { //Same check as containsKey
+            //do something;
+        }
         map.containsValue("v4");//false
         map.isEmpty(); //false
         map.size(); //
         //map.putAll(map2); // void. add all key-values of map2 to map
         map.clear();// void. Removes all key-values of map.
+        for (Map.Entry<String, Integer> e : map.entrySet()) {
+            //do something with keys and values
+        }
+        for (String s : map.keySet()) {
+            //Do something with keys
+        }
+        for (Integer i : map.values()) {
+            //Do something with values
+        }
         //Iterate though key and value pairs
         map.forEach((k, v) -> {
             //do something
+            //Note: can't return inside of foreach
         });
-        map.putIfAbsent("someKey", "someValue");//put key-val if key doesn't exist
-        map.getOrDefault("key", map.get("key") + 1);//Frequency map
     }
 
     public static void main(String[] args) {
@@ -62,12 +75,12 @@ public class MapCore {
         }
 
         //For keys only
-        for (String s: myMap.keySet()){
+        for (String s : myMap.keySet()) {
             //Do something with keys
         }
 
         //For values only
-        for (Object o: myMap.values()){
+        for (Object o : myMap.values()) {
             //Do something with values
         }
 
