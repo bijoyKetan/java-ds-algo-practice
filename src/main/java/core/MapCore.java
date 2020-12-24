@@ -13,7 +13,7 @@ public class MapCore {
         map.put("k2", 2); //Keys can't be duplicate or null. Values can be
         map.get("k1"); // => 1, value of key k1
 
-        //Frequency counting
+        // *** Frequency counting *** //
         map.put("k4", map.getOrDefault("k4", 0) + 1);
 
         map.putIfAbsent("k3", 1);
@@ -32,6 +32,14 @@ public class MapCore {
         map.size(); //
         //map.putAll(map2); // void. add all key-values of map2 to map
         map.clear();// void. Removes all key-values of map.
+
+        // *** ITERATION *** //
+        //Usually entrySet not required, keySet enough
+        for (String s: map.keySet()){
+            // s= do something -> key
+            map.get(s); //-> Value
+        }
+
         for (Map.Entry<String, Integer> e : map.entrySet()) {
             //do something with keys and values
         }
@@ -47,9 +55,10 @@ public class MapCore {
             //Note: can't return inside of foreach
         });
 
-        //Sorting by values in descending order
+        // *** SORTING BY VALUES *** //
         //Return a string of keys with each key appearing
-        //as many times as it's value in original map
+        //as many times as it's value in original map. Desc order
+        //Note: Consider using a priority queue
         List<String> keyList = new ArrayList<>(map.keySet());
         Collections.sort(keyList, (x,y) -> map.get(y) - map.get(x));
         StringBuilder sb = new StringBuilder();
