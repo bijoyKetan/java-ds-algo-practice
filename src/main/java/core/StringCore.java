@@ -1,26 +1,43 @@
 package core;
 
-/*
-  Common String methods:
-  charAt(i) -> char in this String at i
-  contains(str) -> boolean
-  endsWith(str) -> boolean
-  equals(str) -> case sensitive equality
-  equalsIgnoreCase(str) -> case insensitive equality check
-  indexOf(str) -> first index where str starts (else -1)
-  lastIndexOf(str) ->  last index where str starts (else -1)
-  length() -> number of chars
-  startsWith(str) ->  boolean
-  substring(i, j) ->  i (inclusive) to j (exclusive)
-  toLowerCase() -> new str with all lowercase
-  toUpperCase() -> new str with all uppercase
-  String.valueOf(number) -> number to string
-  Integer.valueOf(String) -> String to integer
-  Double.valueOf(String) -> String to double
-  String str = 1 + ""; -> Number + "" -> String.
- */
+
+import org.junit.jupiter.api.Test;
 
 public class StringCore {
+
+    @Test
+    public void coreStringMethods() {
+        String str = "A word";
+
+        str.charAt(0); // char in this String at i
+        str.contains("targetStr");// -> boolean
+        str.startsWith("targetStr");//->  boolean
+        str.endsWith("targetStr"); // -> boolean
+        str.equals("targetStr");// -> case sensitive equality
+        str.equalsIgnoreCase("targetStr");//-> case insensitive equality check
+        str.indexOf("targetStr");//-> first index where str starts (else -1)
+        str.lastIndexOf("targetStr");//->  last index where str starts (else -1)
+        str.length();//-> number of chars
+        str.substring(0, str.length());//->  i (inclusive) to j (exclusive)
+        str.toLowerCase();//-> new str with all lowercase
+        str.toUpperCase();//-> new str with all uppercase
+        String.valueOf(123);//-> number to string
+        String.valueOf('c');//-> character to string
+        Integer.valueOf("12345");//-> String to integer
+        Double.valueOf("123.45");//-> String to double
+        String str2 = 1 + "";//-> Number + "" -> String.
+        str.toCharArray(); //-> convert string to charArray
+
+        //Strings are immutable in Java
+        //For string manipulation, use StringBuilder instead
+        //While dealing with string input, we must need additional space
+        //due to string immutability
+        StringBuilder sb = new StringBuilder();
+        sb.append("ab");
+        sb.append("c");
+        sb.toString(); //-> returns string, abc
+    }
+
     public static void main(String[] args) {
 
         String a = " New York  "; //Initialized -> " New York  "
