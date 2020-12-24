@@ -10,10 +10,12 @@ public class MapCore {
     public void mapTest() {
         Map<String, Integer> map = new HashMap();
         map.put("k1", 1);
-        map.put("k2", 1); //Keys can't be duplicate or null. Values can be
+        map.put("k2", 2); //Keys can't be duplicate or null. Values can be
         map.get("k1"); // => 1, value of key k1
+
         //Frequency counting
         map.put("k4", map.getOrDefault("k4", 0) + 1);
+
         map.putIfAbsent("k3", 1);
         map.remove("k2"); // => v2. Removed the key value pair
         Map.Entry<String, Integer> entry = new AbstractMap.SimpleEntry<>("k5", 5);
@@ -44,6 +46,21 @@ public class MapCore {
             //do something
             //Note: can't return inside of foreach
         });
+
+        //Sorting by values in descending order
+        //Return a string of keys with each key appearing
+        //as many times as it's value in original map
+        List<String> keyList = new ArrayList<>(map.keySet());
+        Collections.sort(keyList, (x,y) -> map.get(y) - map.get(x));
+        StringBuilder sb = new StringBuilder();
+        for (String s: keyList){
+            int count = map.get(s);
+            while (count > 0){
+                sb.append(s);
+                count--;
+            }
+        }
+        //sb.toString -> result
     }
 
     public static void main(String[] args) {
