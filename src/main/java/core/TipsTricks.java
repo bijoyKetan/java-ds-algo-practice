@@ -238,4 +238,17 @@ public class TipsTricks {
             result = a + b;
         }
     }
+
+    @Test
+    public void charFrequency(){
+        String s = "TestCharacter";
+        //256 encodings in ASCII
+        //freq[][1] -> frequency
+        int[][] freq = new int[256][2];
+        char[] charArr = s.toCharArray();
+        for (Character c : charArr) {
+            freq[c][0] = c;
+            freq[c][1] += 1;
+        }
+    }
 }

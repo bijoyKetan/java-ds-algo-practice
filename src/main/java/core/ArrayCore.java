@@ -19,14 +19,18 @@ public class ArrayCore {
 
     @Test
     public void arrayTest() {
-        int[] arr = {1, 2, 3, 4, 5};//=> Initialization of a an int array
-        //arr[x] = y ; Assigns y to the xth index of arr
+        int[] arr = {1, 2, 3, 4, 5};//=> Initialization
+        arr[1] = 9; //Assignment
 
         int[] arr2 = new int[arr.length]; //array of length 5
-        Arrays.fill(arr2, 0);// fills array2 with 0 => [0,0,0,0,0]
+        //By default int[]  filled with 0
+        Arrays.fill(arr2, 1);// fills array2 with 1
 
-        //Array copying
-        // All methods use System.arraycopy() under the hood. Creates shallow copy for non-primitive arrays
+        // *** Array copying  *** //
+        /*
+         All methods use System.arraycopy() under the hood.
+         Creates shallow copy for non-primitive arrays
+         */
         Arrays.copyOf(arr, arr.length); //From index 0 till length.  => [1,2,3,4,5]
         Arrays.copyOfRange(arr, 0, arr.length); // Arrays.copyOfRange(src, startInclusive, endExclusive)
         arr.clone(); // Using the object.clone() method. => [1,2,3,4,5]
@@ -39,9 +43,15 @@ public class ArrayCore {
         String[] strB = strA;
         strA[0] = "newAlan";// strB[0] is now also newAlan
 
-        //Sorting.
-        // Java uses Merge sort or Time sort depending on the version
-        // O(n log n) time and O(n) space
+        // *** Sorting *** //
+        /*
+        Java uses Merge sort or Time sort depending on the version
+        O(n log n) time and O(n) space
+        Note: Sorting with lambda implements the comparator interface
+        This doesn't work on primitives
+        Won't work on int[], but works on int[][]
+        Since array itself is object
+         */
         int[] arr7 = {7, 5, 8, 3, 8, 9};
         Arrays.sort(arr7); //[3, 5, 7, 8, 8, 9]  void method.
 
@@ -57,7 +67,7 @@ public class ArrayCore {
         //[[4.1, 2.1, 6.7], [5.1, 2.1, 6.7], [6.1, 2.3, 6.7]]
 
         //Array to list and list to array
-        Integer[] arrTest1 ={1,2,3,4,5};
+        Integer[] arrTest1 = {1, 2, 3, 4, 5};
         //Following will not work if arrTest1 was int[]
         List<Integer> listTest1 = Arrays.asList(arrTest1);
         Integer[] arrTest2 = listTest1.toArray(new Integer[0]);
