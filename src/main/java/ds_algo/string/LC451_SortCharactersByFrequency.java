@@ -38,6 +38,42 @@ public class LC451_SortCharactersByFrequency {
         return sb.toString();
     }
 
+    public String frequencyHeapSort(String s) {
+        /*
+        Iterate the charArray
+        Map if freq count
+        Add the map to a priority queue
+        Sorted desc order by frequency
+        Remove the characters from heap
+        Create and return word using string builder
+         */
+
+        if (s == null || s.length() < 2) return s;
+        Map<Character, Integer> map = new HashMap<>();
+
+        for (Character c : s.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+
+        PriorityQueue<Character> pq = new PriorityQueue<>(
+                (a, b) -> map.get(b) - map.get(a));
+        pq.addAll(map.keySet());
+
+        StringBuilder result = new StringBuilder();
+        while (!pq.isEmpty()) {
+            Character c = pq.poll();
+            int freq = map.get(c);
+            StringBuilder sb = new StringBuilder();
+            while (freq > 0) {
+                sb.append(c);
+                freq--;
+            }
+            result.append(sb);
+        }
+        return result.toString();
+    }
+
+
     public String frequencyBucketSort(String s) {
         /*
         Create freq map of characters
@@ -88,5 +124,8 @@ public class LC451_SortCharactersByFrequency {
 
         assertThat(frequencyBucketSort("tree")).isIn("eert", "eetr");
         assertThat(frequencyBucketSort("Aabb")).isIn("bbAa", "bbaA");
+
+        assertThat(frequencyHeapSort("tree")).isIn("eert", "eetr");
+        assertThat(frequencyHeapSort("Aabb")).isIn("bbAa", "bbaA");
     }
 }
