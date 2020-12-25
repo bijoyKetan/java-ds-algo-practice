@@ -3,13 +3,19 @@ package core;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.PriorityQueue;
 
 public class PriorityQueueCore {
     public static void main(String[] args) {
 
-        PriorityQueue<String> minHeap = new PriorityQueue<>(5, (s1, s2) -> s1.length() - s2.length());
+        // *** CORE METHODS *** //
+        PriorityQueue<String> minHeap =
+                new PriorityQueue<>(5, (s1, s2) -> s1.length() - s2.length());
         minHeap.offer("Tom");
+        //pq.add(""); // -> performs the same func
+        //add vs offer -> collection vs queue interfaces
         minHeap.offer("Cathy");
         minHeap.offer("Robert");
         minHeap.offer("Bo");
@@ -20,6 +26,36 @@ public class PriorityQueueCore {
         minHeap.poll(); //Bo
         // Post polling ->  Tom, Cathy, Robert
         minHeap.isEmpty();
+
+        // *** PQ WITH MAP *** //
+        Map<String, Integer> map = new HashMap<>();
+        map.put("Tom", 21);
+        map.put("Jon", 41);
+        map.put("Ben", 31);
+        map.put("Ron", 33);
+
+        //Key set is enough.
+        //Descending sort by values
+        PriorityQueue<String> pq =
+                new PriorityQueue<>((a, b) -> map.get(b) - map.get(a));
+        pq.addAll(map.keySet());
+        //Polling from PQ -> sorted order removal
+        while (!pq.isEmpty()) {
+            //Don't poll multiple times in same loop
+            String name = pq.poll();
+            System.out.println(name + " " + map.get(name));
+        }
+
+        /*
+        NOTE: poll() from pq restored the heap property
+        forEach doesn't retain heap property
+        PriorityQueue<Map.Entry<String, Integer>> pq =
+                new PriorityQueue<>((a, b) -> b.getValue() - a.getValue());
+        pq.addAll(map.entrySet());
+        while (!pq.isEmpty()) {
+            System.out.println(pq.poll().getKey());
+        }
+         */
     }
 
 
