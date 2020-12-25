@@ -38,6 +38,44 @@ public class LC451_SortCharactersByFrequency {
         return sb.toString();
     }
 
+    //Most efficient solution with bucket sort and ASCII
+    public String frequencyBucketSortASCII(String s) {
+        /*
+        Iterate through charArray
+        Create count of characters assuming ASCII encoding
+        arr[character val][frequency count]
+        ASCII encoding => 256 possible characters
+        Sort the array in desc order of freq
+        Iterate through sorted array
+        Form the string using string builder
+        Note: char - > int (auto conversion)
+        int -> chat -> needs explicit casting
+         */
+
+        if (s == null || s.length() < 2) return s;
+        //This is like a map
+        int[][] freq = new int[256][2];
+
+        char[] charArr = s.toCharArray();
+        for (Character c : charArr) {
+            freq[c][0] = c;
+            freq[c][1] += 1;
+        }
+
+        StringBuilder result = new StringBuilder();
+        Arrays.sort(freq, (a, b) -> b[1] - a[1]);
+        for (int i = 0; i < 256; i++) {
+            int count = freq[i][1];
+            StringBuilder sb = new StringBuilder();
+            while (count > 0) {
+                sb.append((char) freq[i][0]);
+                count--;
+            }
+            result.append(sb);
+        }
+        return result.toString();
+    }
+
     public String frequencyHeapSort(String s) {
         /*
         Iterate the charArray
@@ -127,5 +165,8 @@ public class LC451_SortCharactersByFrequency {
 
         assertThat(frequencyHeapSort("tree")).isIn("eert", "eetr");
         assertThat(frequencyHeapSort("Aabb")).isIn("bbAa", "bbaA");
+
+        assertThat(frequencyBucketSortASCII("tree")).isIn("eert", "eetr");
+        assertThat(frequencyBucketSortASCII("Aabb")).isIn("bbAa", "bbaA");
     }
 }
