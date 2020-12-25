@@ -230,17 +230,17 @@ public class TipsTricks {
     }
 
     //A trick for quickly checking for zero condition (often used in DP)
-    public void testIfOneIsZero(){
+    public void testIfOneIsZero() {
         int a = 0;
         int b = 5;
         int result;
-        if (a * b == 0){
+        if (a * b == 0) {
             result = a + b;
         }
     }
 
     @Test
-    public void charFrequency(){
+    public void charFrequency() {
         String s = "TestCharacter";
         //256 encodings in ASCII
         //freq[][1] -> frequency
@@ -251,4 +251,26 @@ public class TipsTricks {
             freq[c][1] += 1;
         }
     }
+
+    @Test
+    //Get closest to target in sorted array
+    public int whileLoopUpdate(int[] arr, int target) {
+        if (arr.length == 1) return arr[0];
+        int left = 0; //left bound
+        int right = arr.length - 1; //right bound
+        int mid = (left + right) / 2; //midpoint
+
+        if (arr[left] == target) return target;
+        else if (arr[right] == target) return target;
+        //both conditions needed, e.g. arr[1,2] and arr[1,2,3]
+        while (left < mid && right > mid) {
+            if (arr[mid] == target) return target;
+            else if (arr[mid] > target) right = mid;
+            else left = mid;
+            //Note: vars in while condition must be updated before entering next iteration
+            mid = (left + right) / 2;
+        }
+        return target - arr[left] <= arr[right] - target ? arr[left] : arr[right];
+    }
+
 }
