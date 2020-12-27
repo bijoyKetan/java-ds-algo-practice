@@ -3,6 +3,8 @@ package core;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 public class StringCore {
 
     @Test
@@ -25,6 +27,11 @@ public class StringCore {
         str.indexOf("targetStr");//-> first index where str starts (else -1)
         str.lastIndexOf("targetStr");//->  last index where str starts (else -1)
 
+        // *** CHAR ARRAY *** //
+        char[] arr = new char[] {'l', 'o', 'v', 'e'};
+        String.valueOf(arr); // "love"
+        new String(arr); // "love"
+        Arrays.toString(arr); //[l, o, v, e]
 
         // *** REPLACEMENT *** //
         String sentence = "It's a man, it's a plane, it's superman.";
