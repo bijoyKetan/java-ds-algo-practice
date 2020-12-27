@@ -452,4 +452,187 @@ public class test {
         System.out.println(frequencySort("tree"));
         System.out.println(frequencySort("Aabb"));
     }
+
+    //---------------------------------------------------------//
+    //////////////// DIVIDE & CONQUER ////////////////
+    //---------------------------------------------------------//
+
+    public static int numberOfOnes(int[] arr) {
+       /*
+       Binary search
+       base:
+        if arr[start] == 1 return arr.length
+        if arr[end] == 0 return 0
+       if mid == 1 -> right side
+       if mid == 0 -> left side
+
+       End of while loop:
+        if arr[start] == 1 then arr.length - start
+        else if arr[start] == 0 arr.length - start - 1
+
+        */
+        if (arr.length == 0) return 0;
+        int start = 0;
+        int end = arr.length - 1;
+        int mid = 0;
+
+        if (arr[start] == 1) return arr.length;
+        if (arr[end] == 0) return 0;
+
+        while (start <= end) {
+            mid = start + (end - start) / 2;
+            if (arr[mid] == 1) {
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+//        System.out.println("start: " + start);
+//        System.out.println("end: " + start);
+//        System.out.println("mid: " + start);
+//        System.out.println("----");
+        if (arr[end] == 1) return arr.length - end;
+        return arr.length - end - 1;
+    }
+
+    public static int helperNumberOfOnes(int[] arr, int left, int right) {
+        if (arr.length == 0) return 0;
+        else if (arr[left] == 1) return right - left + 1;
+        else if (arr[right] == 0) return 0;
+        int mid = (left + right) / 2;
+        return helperNumberOfOnes(arr, left, mid) + helperNumberOfOnes(arr, mid + 1, right);
+    }
+
+    @Test
+    void testNumberOfOnes() {
+        System.out.println(numberOfOnes(new int[]{0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1})); // 8
+        System.out.println(numberOfOnes(new int[]{1, 1, 1, 1})); // 4
+        System.out.println(numberOfOnes(new int[]{1, 1, 1})); // 3
+        System.out.println(numberOfOnes(new int[]{0, 0, 0})); // 0
+        System.out.println(numberOfOnes(new int[]{0, 0, 0, 0})); // 0
+
+    }
+
+    public static int closestValue(int[] arr, int target) {
+
+        if (arr.length == 1) return arr[0];
+        int left = 0;
+        int right = arr.length - 1;
+        int mid = (left + right) / 2;
+
+        if (arr[left] == target) return target;
+        else if (arr[right] == target) return target;
+
+        while (left < mid && right > mid) {
+            if (arr[mid] == target) return target;
+            else if (arr[mid] > target) right = mid;
+            else left = mid;
+            //Note: vars in while condition must be updated before entering next iteration
+            mid = (left + right) / 2;
+        }
+
+        return target - arr[left] <= arr[right] - target ? arr[left] : arr[right];
+    }
+
+    @Test
+    void testClosestValue() {
+        System.out.println(closestValue(new int[]{1, 2, 3, 5, 5, 7, 9, 10, 11}, 6)); //5
+        System.out.println(closestValue(new int[]{1, 2, 3}, 8)); //3
+        System.out.println(closestValue(new int[]{1, 10, 22, 59, 67, 72, 100}, 70)); //72
+
+    }
+
+    //Find number of values greater than target
+    public static int greaterValues(int[] arr, int target) {
+        //Edge case
+        if (arr.length == 0) return 0;
+
+        int start = 0;
+        int end = arr.length - 1;
+        int mid;
+
+        //Boundary conditions
+        if (arr[start] > target) return arr.length;
+        if (arr[end] <= target) return 0;
+
+        while (start <= end) {
+            mid = start + (end - start) / 2;
+            //condition t0 move right
+            //note > vs >= , check carefully
+            //if q asks greater than strictly
+            //then >= here and vice versa
+            if (arr[mid] <= target) {
+                start = mid + 1;
+            } else {
+                //move left
+                end = mid - 1;
+            }
+        }
+        //Include the arr[end] itself
+        return arr.length - end - 1;
+    }
+
+    @Test
+    void testGreaterValues() {
+        System.out.println(greaterValues(new int[]{1, 2, 3, 5, 5, 7, 9, 10, 11}, 5)); //4
+        System.out.println(greaterValues(new int[]{1, 2, 3}, 4)); //0
+        System.out.println(greaterValues(new int[]{1, 10, 22, 59, 67, 72, 100}, 13)); //5
+        System.out.println(greaterValues(new int[]{100}, 13)); //1
+        System.out.println(greaterValues(new int[]{100}, 200)); //0
+        System.out.println(greaterValues(new int[]{}, 13)); //0
+    }
+
+    public static boolean rotatedArraySearch(int[] nums, int target) {
+        /*
+        Divide in halves
+        In a while loop:
+            Check for which half is sorted
+            Search in the sorted half
+            If not in sorted half
+                adjust bounds to other half and divide that
+        If outside the while loop - return false
+         */
+
+        if (nums.length == 0) return false;
+        int start = 0;
+        int end = nums.length - 1;
+        int mid;
+
+        while (start <= end) {
+            mid = start + (end - start) / 2;
+            if (nums[mid] == target) return true;
+            //sorted right half
+            if (nums[mid] <= nums[end]) {
+                //target in right half range
+                if (target > nums[mid] && target <= nums[end]) {
+                    if (target > nums[mid]) start = mid + 1;
+                    else end = mid - 1;
+                } else {
+                    //if not in right range
+                    end = mid - 1;
+                }
+            }
+            //left half sorted
+            else {
+                //check if target in left half range
+                if (target >= nums[start] && target <= nums[mid]) {
+                    if (target > nums[mid]) start = mid + 1;
+                    else end = mid - 1;
+                } else {
+                    //if not in left range
+                    start = mid + 1;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Test
+    void rotatedArrayTest() {
+        System.out.println(rotatedArraySearch(new int[]{35, 46, 79, 102, 1, 14, 29, 31}, 46)); //true
+        System.out.println(rotatedArraySearch(new int[]{35, 46, 79, 102, 1, 14, 29, 31}, 47)); //false
+        System.out.println(rotatedArraySearch(new int[]{7, 8, 9, 10, 1, 2, 3, 4, 5, 6}, 9)); //true
+    }
+
+
 }

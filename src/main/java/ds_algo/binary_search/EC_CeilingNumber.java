@@ -23,6 +23,7 @@ public class EC_CeilingNumber {
                 end = mid - 1;
             }
         }
+        //NOTE:
         // End of while loop -> start == end + 1
         // exact element not found, so the next big number will be arr[start]
         // base cases at the top ensure we don't go out of bound
