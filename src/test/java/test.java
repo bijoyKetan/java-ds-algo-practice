@@ -1,3 +1,4 @@
+import core.Util.HelperMethods;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -108,7 +109,7 @@ public class test {
 
     }
 
-    public static String compute(String str) {
+    public static String compute2DArray(String str) {
         // YOUR WORK HERE
         char[] arr = str.toCharArray();
         return helper(arr, 0);
@@ -124,7 +125,7 @@ public class test {
 
     @Test
     public void recursionReverseTest() {
-        System.out.println(compute("ABCDEF"));
+        System.out.println(compute2DArray("ABCDEF"));
     }
 
     @Test
@@ -634,5 +635,149 @@ public class test {
         System.out.println(rotatedArraySearch(new int[]{7, 8, 9, 10, 1, 2, 3, 4, 5, 6}, 9)); //true
     }
 
+    //---------------------------------------------------------//
+    //////////////// RECURSION ////////////////
+    //---------------------------------------------------------//
 
+    public String reverseString(String str) {
+        return helperReverseStr(str, str.length() - 1, new StringBuilder()).toString();
+    }
+
+    private StringBuilder helperReverseStr(String str, int index, StringBuilder result) {
+        if (index < 0) return result;
+        else return helperReverseStr(str, index - 1, result.append(str.charAt(index)));
+    }
+
+    @Test
+    void testReverseString() {
+        System.out.println(reverseString("Hello"));
+    }
+
+
+    public int[][] compute2DArray(int[] arr) {
+        int size = arr.length % 2 == 0 ? arr.length / 2 : arr.length / 2 + 1;
+        return helper(arr, 0, new int[size][2]);
+    }
+
+    private int[][] helper(int[] arr, int index, int[][] result) {
+        //Base case
+        if (index >= arr.length) return result;
+
+
+        result[index / 2][0] = arr[index];
+        if (index == arr.length - 1) {
+            result[index / 2][1] = -1;
+
+        } else {
+            result[index / 2][1] = arr[index + 1];
+        }
+        index += 2;
+        return helper(arr, index, result);
+    }
+
+    @Test
+    void arrayFlattenTest() {
+        int[][] result = compute2DArray(new int[]{1, 2, 3, 4, 5, 6});
+        int[][] result2 = compute2DArray(new int[]{1, 2, 3, 4, 5});
+        HelperMethods.print2DArray(result);
+        HelperMethods.print2DArray(result2);
+    }
+
+    public static int[] compute(int[][] matrix) {
+        if (matrix.length == 0) return new int[]{};
+        //result will be modified by the helper
+        int[] result = new int[matrix.length * matrix[0].length];
+        helper(matrix, 0, 0, result);
+        return result;
+    }
+
+    /*
+    Helper method often void
+    helper (original input, indexTracker, result)
+    Result is what is being modified by helper
+     */
+
+    private static void helper(int[][] matrix, int outerIndex, int innerIndex, int[] result) {
+        if (outerIndex >= matrix.length) return;
+
+        for (int i = 0; i < matrix[outerIndex].length; i++) {
+            result[innerIndex] = matrix[outerIndex][i];
+            innerIndex++;
+        }
+        //No need to increase innerIndex since the previous increments takes care of it
+        helper(matrix, outerIndex + 1, innerIndex, result);
+    }
+
+    @Test
+    void testMatrixFlatten() {
+        System.out.println(Arrays.toString(compute(new int[][]{{1, 2}, {3, 4}, {5, 6}})));
+        System.out.println(Arrays.toString(compute(new int[][]{})));
+    }
+
+    //Power test
+    /*
+    Note: for int return type, do NOT:
+      - use result in main body
+      - try to modify result and return
+      - works for objects, not primitives
+     */
+    public static int compute(int a, int b) {
+        if (a == 0) return 0;
+        return helper(a, b, 0, 1);
+    }
+
+    private static int helper(int a, int b, int index, int result) {
+        if (index >= b) return result;
+        result = result * a;
+        return helper(a, b, index + 1, result);
+    }
+
+    @Test
+    void powerTest() {
+        System.out.println(compute(3, 4)); //81
+        System.out.println(compute(1, 9)); //1
+        System.out.println(compute(0, 4)); //0
+        System.out.println(compute(5, 0)); //15
+    }
+
+
+    //Merge Arrays
+    /*
+    Two indices needed to track two arrays
+    Since return type is mutable object (array), void helper function
+    Result array is passed in parameter of helper func
+    Return is needed after each base case
+    Result var needs updating prior to passing in recursive call
+     */
+    public static int[] compute(int[] arr1, int[] arr2) {
+        int[] result = new int[arr1.length + arr2.length];
+        helperMerge(arr1, arr2, 0, 0, result);
+        return result;
+    }
+
+    private static void helperMerge(int[] arr1, int[] arr2, int i1, int i2, int[] result) {
+        if (i1 >= arr1.length){
+            //Note: i2 is already assigned so no need for i2 = i2
+            for (; i2 < arr2.length; i2++){
+                result[i1+i2] = arr2[i2];
+            }
+            return;
+        }
+        else if (i2 >= arr2.length){
+            for (; i1 < arr1.length; i1++){
+                result[i1+i2] = arr1[i1];
+            }
+            return;
+        }
+
+        result[i1 + i2] = arr1[i1] <= arr2[i2] ? arr1[i1++] : arr2[i2++];
+        helperMerge(arr1, arr2, i1, i2, result);
+    }
+
+    @Test
+    void testMergeArray() {
+        System.out.println(Arrays.toString(compute(new int[]{1, 4, 7}, new int[]{2, 3, 6})));
+        System.out.println(Arrays.toString(compute(new int[]{}, new int[]{2, 3, 6})));
+        System.out.println(Arrays.toString(compute(new int[]{}, new int[]{})));
+    }
 }
