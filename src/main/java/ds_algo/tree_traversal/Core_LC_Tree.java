@@ -98,4 +98,49 @@ public class Core_LC_Tree {
         System.out.println(isSymmetric(root3));
     }
 
+
+    //******************//
+    //Path Sum
+    //https://leetcode.com/problems/path-sum/
+    //******************//
+    public boolean hasPathSum(TreeNode root, int sum) {
+        if (root == null) return false;
+        return helperPathSum(root, sum, 0);
+    }
+
+    private boolean helperPathSum(TreeNode root, int sum, int currSum) {
+        //Root == null could be from any parent and not just from leaf parent
+        if (root == null) return false;
+        //Update the result var
+        currSum += root.val;
+        //Ensures left node and then checks sum
+        if (root.left == null && root.right == null) {
+            return sum == currSum;
+        }
+        return helperPathSum(root.left, sum, currSum) ||
+                helperPathSum(root.right, sum, currSum);
+    }
+
+    public boolean hasPathSumDirect(TreeNode root, int sum) {
+        if (root == null) return false;
+        sum -= root.val;
+        if (root.left == null && root.right == null) {
+            return sum == 0;
+        }
+        return hasPathSumDirect(root.left, sum) ||
+                hasPathSumDirect(root.right, sum);
+
+    }
+
+    @Test
+    void testPathSUm() {
+        System.out.println(hasPathSum(root1, 18));
+        System.out.println(hasPathSum(root2, 99));
+        System.out.println(hasPathSum(root3, 1));
+
+        System.out.println(hasPathSumDirect(root1, 18));
+        System.out.println(hasPathSumDirect(root2, 99));
+        System.out.println(hasPathSumDirect(root3, 1));
+    }
+
 }
