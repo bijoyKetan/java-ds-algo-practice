@@ -663,7 +663,6 @@ public class test {
         //Base case
         if (index >= arr.length) return result;
 
-
         result[index / 2][0] = arr[index];
         if (index == arr.length - 1) {
             result[index / 2][1] = -1;
@@ -671,12 +670,11 @@ public class test {
         } else {
             result[index / 2][1] = arr[index + 1];
         }
-        index += 2;
-        return helper(arr, index, result);
+        return helper(arr, index + 2, result);
     }
 
     @Test
-    void arrayFlattenTest() {
+    void arrayPairTest() {
         int[][] result = compute2DArray(new int[]{1, 2, 3, 4, 5, 6});
         int[][] result2 = compute2DArray(new int[]{1, 2, 3, 4, 5});
         HelperMethods.print2DArray(result);
@@ -696,7 +694,6 @@ public class test {
     helper (original input, indexTracker, result)
     Result is what is being modified by helper
      */
-
     private static void helper(int[][] matrix, int outerIndex, int innerIndex, int[] result) {
         if (outerIndex >= matrix.length) return;
 
@@ -756,16 +753,15 @@ public class test {
     }
 
     private static void helperMerge(int[] arr1, int[] arr2, int i1, int i2, int[] result) {
-        if (i1 >= arr1.length){
+        if (i1 >= arr1.length) {
             //Note: i2 is already assigned so no need for i2 = i2
-            for (; i2 < arr2.length; i2++){
-                result[i1+i2] = arr2[i2];
+            for (; i2 < arr2.length; i2++) {
+                result[i1 + i2] = arr2[i2];
             }
             return;
-        }
-        else if (i2 >= arr2.length){
-            for (; i1 < arr1.length; i1++){
-                result[i1+i2] = arr1[i1];
+        } else if (i2 >= arr2.length) {
+            for (; i1 < arr1.length; i1++) {
+                result[i1 + i2] = arr1[i1];
             }
             return;
         }
