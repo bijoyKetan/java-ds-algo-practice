@@ -2,6 +2,9 @@ package ds_algo.tree_traversal;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Core_LC_Tree {
 
     private TreeNode root1;
@@ -229,5 +232,75 @@ public class Core_LC_Tree {
     }
      */
 
+
+    //******************//
+    //106. Construct Binary Tree from Inorder and Postorder Traversal
+    //https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
+    //******************//
+
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        if (inorder == null || postorder == null || postorder.length == 0 || postorder.length != inorder.length) {
+            return null;
+        }
+        //Map <value, index> from inOrder traversal to
+        //track index for left and right subtree bounds
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
+            map.put(inorder[i], i);
+        }
+        return helperInPostTree(inorder, postorder, 0, postorder.length - 1, new int[]{postorder.length - 1}, map);
+    }
+
+    //Left and right bounds here absolute for each caller so int/immutable
+    //postIndex needs to change state globally for other callers -> so Object
+    //There's only one postIndex globally whereas each recursive call has their own left/right bounds
+    //Map is also global, as are inOrder and postOrder, but these are not changing in this function
+    private TreeNode helperInPostTree(int[] inorder, int[] postorder, int leftIndex, int rightIndex, int[] postIndex, Map<Integer, Integer> map) {
+        if (leftIndex > rightIndex) {
+            //Empty subtree
+            return null;
+        }
+        //Create tree from postOrder traversal
+        TreeNode treeNode = new TreeNode(postorder[postIndex[0]--]);
+
+        //Get
+        int index = map.get(treeNode.val);
+        treeNode.right = helperInPostTree(inorder, postorder, index + 1, rightIndex, postIndex, map);
+        treeNode.left = helperInPostTree(inorder, postorder, leftIndex, index - 1, postIndex, map);
+
+        return treeNode;
+
+    }
+
+
+    /*
+    Pass by value and ref demo
+     */
+    public int recursionState(int[] arr, int num) {
+        if (num >= arr.length - 1) return arr[arr.length - 1];
+        arr[arr.length - 1] += arr[num++] * 2;
+        System.out.println(num);
+        int a = recursionState(arr, num);
+        num += 1;
+        System.out.println(num);
+        return a + recursionState(arr, num);
+    }
+
+    public int recursionState2(int[] arr, int[] num) {
+        if (num[0] >= arr.length - 1) return arr[arr.length - 1];
+        arr[arr.length - 1] += arr[num[0]++] * 2;
+        //System.out.println(arr[arr.length - 1]);
+        System.out.println(num[0]);
+        int a = recursionState2(arr, num);
+        num[0] += 1;
+        System.out.println(num[0]);
+        return a + recursionState2(arr, num);
+    }
+
+    @Test
+    void testRecursionStates() {
+        System.out.println("Result from primitive is: " + recursionState(new int[]{1, 2, 3, 0}, 0));
+        System.out.println("Result from object  is: " + recursionState2(new int[]{1, 2, 3, 0}, new int[]{0}));
+    }
 
 }
