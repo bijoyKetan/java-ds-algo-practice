@@ -178,4 +178,56 @@ public class Core_LC_Tree {
         }
         return false;
     }
+
+    //******************//
+    //1008. Construct Binary Search Tree from Preorder Traversal/
+    //https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/
+    //******************//
+
+    //Input is guaranteed to be pre order traversal of a valid BST
+    /*
+       NOTE: In tree problems if counter/index required, do not use primitive
+       use int[]/primitive[] since in java primitive params are passed by value
+       i.e. the caller doesn't see the changes make by the other calls recursively before it.
+     */
+
+    public TreeNode bstFromPreorder(int[] preorder) {
+        if (preorder == null || preorder.length == 0) return null;
+        return helperBstFromPreorder(preorder, Integer.MAX_VALUE, Integer.MIN_VALUE, new int[]{0});
+    }
+
+    private TreeNode helperBstFromPreorder(int[] preorder, int upper, int lower, int[] index) {
+        if (index[0] >= preorder.length || preorder[index[0]] < lower || preorder[index[0]] > upper) {
+            return null;
+        }
+
+        TreeNode treeNode = new TreeNode(preorder[index[0]++]);
+        treeNode.left = helperBstFromPreorder(preorder, treeNode.val, lower, index);
+        treeNode.right = helperBstFromPreorder(preorder, upper, treeNode.val, index);
+
+        return treeNode;
+    }
+
+    /*
+    NOTE: Following does not work
+
+    public TreeNode bstFromPreorder(int[] preorder) {
+        if (preorder == null || preorder.length == 0) return null;
+        return helperBstFromPreorder(preorder, Integer.MAX_VALUE, Integer.MIN_VALUE, 0);
+    }
+
+    private TreeNode helperBstFromPreorder(int[] preorder, int upper, int lower, int index) {
+        if (index >= preorder.length || preorder[index] < lower || preorder[index] > upper) {
+            return null;
+        }
+
+        TreeNode treeNode = new TreeNode(preorder[index++]);
+        treeNode.left = helperBstFromPreorder(preorder, treeNode.val, lower, index);
+        treeNode.right = helperBstFromPreorder(preorder, upper, treeNode.val, index);
+
+        return treeNode;
+    }
+     */
+
+
 }
