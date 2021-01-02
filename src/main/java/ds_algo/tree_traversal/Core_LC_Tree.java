@@ -44,6 +44,13 @@ public class Core_LC_Tree {
         root2.right.right = new TreeNode(3);
     }
 
+    public void printTreePreOrder(TreeNode root) {
+        if (root == null) return;
+        System.out.println(root.val);
+        printTreePreOrder(root.left);
+        printTreePreOrder(root.right);
+    }
+
     //******************//
     //Fid max depth of binary tree
     //https://leetcode.com/problems/maximum-depth-of-binary-tree/
@@ -301,6 +308,26 @@ public class Core_LC_Tree {
     void testRecursionStates() {
         System.out.println("Result from primitive is: " + recursionState(new int[]{1, 2, 3, 0}, 0));
         System.out.println("Result from object  is: " + recursionState2(new int[]{1, 2, 3, 0}, new int[]{0}));
+    }
+
+    public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
+        //Do I have all the info/states I need in the params?
+        //If yes, I may not need a separate helper function
+        if (t1 == null && t2 == null) return null;
+        if (t1 == null) return t2;
+        if (t2 == null) return t1;
+
+        TreeNode merged = new TreeNode(t1.val + t2.val);
+
+        merged.left = mergeTrees(t1.left, t2.left);
+        merged.right = mergeTrees(t1.right, t2.right);
+        return merged;
+
+    }
+
+    @Test
+    void testMergedTrees() {
+        printTreePreOrder(mergeTrees(root1, root2));
     }
 
 }
