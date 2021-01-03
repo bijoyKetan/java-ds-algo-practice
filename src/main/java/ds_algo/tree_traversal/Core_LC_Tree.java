@@ -359,4 +359,55 @@ public class Core_LC_Tree {
         return Math.max(left, right) + 1;
     }
 
+
+    //******************//
+    //98. Validate Binary Search Tree
+    //https://leetcode.com/problems/validate-binary-search-tree/
+    //******************//
+
+    /*
+   Check values left < node < right
+   Check that both left subtree and right subtree are BST
+   Given root : Need to check with max - min range
+   Ensure all node values fall inrange
+   Bottom up post order traversal
+   */
+    public boolean isValidBST(TreeNode root) {
+        return helperValidator(root, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+    }
+
+    /*
+    This method is more efficient as it fails fast
+    Insted of using AND condiion that forces the check of both subtrees,
+    Using OR condition that fails as soon as one of the subtrees fail
+    */
+    private boolean helperValidator(TreeNode root, double min, double max){
+        if (root == null) return true;
+
+        //process left and right children recursively
+        boolean isLeft = helperValidator (root.left, min, root.val);
+        boolean isRight = helperValidator (root.right, root.val, max);
+        if (!isLeft || !isRight) return false;
+
+
+        //process node
+        if (root.val <= min || root.val >= max) return false;
+        return true;
+    }
+
+    /*
+        private boolean helperValidator(TreeNode root, double min, double max){
+        if (root == null) return true;
+
+        //process left and right children recursively
+        boolean isLeft = helperValidator (root.left, min, root.val);
+        boolean isRight = helperValidator (root.right, root.val, max);
+
+        //process node
+        return isLeft && isRight && root.val < max && root.val > min;
+    }
+    */
+
+
+
 }
