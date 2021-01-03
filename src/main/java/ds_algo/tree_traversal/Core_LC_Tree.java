@@ -330,4 +330,33 @@ public class Core_LC_Tree {
         printTreePreOrder(mergeTrees(root1, root2));
     }
 
+    //******************//
+    //110. Balanced Binary Tree
+    //https://leetcode.com/problems/balanced-binary-tree/
+    //******************//
+
+    public boolean isBalanced(TreeNode root) {
+        if (root == null) return true;
+        return helperBalanced(root) != -1;
+    }
+
+    private int helperBalanced(TreeNode node) {
+        //base case
+        if (node == null) return 0;
+
+        //Post order traversal is efficient here
+        //Get height of left and right subtree
+        int left = helperBalanced(node.left);
+        int right = helperBalanced(node.right);
+
+        //if left subtree is -1, then not balanced
+        if (left == -1 || right == -1) return -1;
+        //if right subtree is -1, then not balanced
+        if (Math.abs(left - right) > 1) return -1;
+
+        //Finally process node - i.e. height of node
+        //max depth between left and right subtree
+        return Math.max(left, right) + 1;
+    }
+
 }
