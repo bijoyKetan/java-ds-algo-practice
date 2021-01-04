@@ -476,4 +476,29 @@ public class Core_LC_Tree {
         return root;
     }
 
+
+    //******************//
+    //543. Diameter of Binary Tree
+    //https://leetcode.com/problems/diameter-of-binary-tree/
+    //******************//
+    //Global var/attribute
+    int diameter;
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        diameter = 0;
+        helperHeight(root);
+        return diameter;
+    }
+
+    private int helperHeight(TreeNode root) {
+        if (root == null) return 0;
+
+        int left = helperHeight(root.left);
+        int right = helperHeight(root.right);
+
+        //Path through a given node vs. diameter so far
+        diameter = Math.max(diameter, left + right);
+        //Return height
+        return Math.max(left, right) + 1;
+    }
 }
