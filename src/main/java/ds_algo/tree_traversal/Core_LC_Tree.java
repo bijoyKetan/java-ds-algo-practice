@@ -1,7 +1,5 @@
 package ds_algo.tree_traversal;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,10 +60,10 @@ public class Core_LC_Tree {
         return Math.max(leftHeight, rightHeight) + 1;
     }
 
-    @Test
-    void testMaxDepth() {
-        System.out.println(maxDepth(this.root1));
-    }
+//    @Test
+//    void testMaxDepth() {
+//        System.out.println(maxDepth(this.root1));
+//    }
 
     //******************//
     //Symmetric tree from the center
@@ -101,12 +99,12 @@ public class Core_LC_Tree {
          */
     }
 
-    @Test
-    void testSymmetry() {
-        System.out.println(isSymmetric(root1));
-        System.out.println(isSymmetric(root2));
-        System.out.println(isSymmetric(root3));
-    }
+//    @Test
+//    void testSymmetry() {
+//        System.out.println(isSymmetric(root1));
+//        System.out.println(isSymmetric(root2));
+//        System.out.println(isSymmetric(root3));
+//    }
 
 
     //******************//
@@ -142,16 +140,16 @@ public class Core_LC_Tree {
 
     }
 
-    @Test
-    void testPathSUm() {
-        System.out.println(hasPathSum(root1, 18));
-        System.out.println(hasPathSum(root2, 99));
-        System.out.println(hasPathSum(root3, 1));
-
-        System.out.println(hasPathSumDirect(root1, 18));
-        System.out.println(hasPathSumDirect(root2, 99));
-        System.out.println(hasPathSumDirect(root3, 1));
-    }
+//    @Test
+//    void testPathSUm() {
+//        System.out.println(hasPathSum(root1, 18));
+//        System.out.println(hasPathSum(root2, 99));
+//        System.out.println(hasPathSum(root3, 1));
+//
+//        System.out.println(hasPathSumDirect(root1, 18));
+//        System.out.println(hasPathSumDirect(root2, 99));
+//        System.out.println(hasPathSumDirect(root3, 1));
+//    }
 
     //******************//
     //250. Count Univalue Subtrees
@@ -304,11 +302,11 @@ public class Core_LC_Tree {
         return a + recursionState2(arr, num);
     }
 
-    @Test
-    void testRecursionStates() {
-        System.out.println("Result from primitive is: " + recursionState(new int[]{1, 2, 3, 0}, 0));
-        System.out.println("Result from object  is: " + recursionState2(new int[]{1, 2, 3, 0}, new int[]{0}));
-    }
+//    @Test
+//    void testRecursionStates() {
+//        System.out.println("Result from primitive is: " + recursionState(new int[]{1, 2, 3, 0}, 0));
+//        System.out.println("Result from object  is: " + recursionState2(new int[]{1, 2, 3, 0}, new int[]{0}));
+//    }
 
     public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
         //Do I have all the info/states I need in the params?
@@ -325,10 +323,10 @@ public class Core_LC_Tree {
 
     }
 
-    @Test
-    void testMergedTrees() {
-        printTreePreOrder(mergeTrees(root1, root2));
-    }
+//    @Test
+//    void testMergedTrees() {
+//        printTreePreOrder(mergeTrees(root1, root2));
+//    }
 
     //******************//
     //110. Balanced Binary Tree
@@ -381,12 +379,12 @@ public class Core_LC_Tree {
     Insted of using AND condiion that forces the check of both subtrees,
     Using OR condition that fails as soon as one of the subtrees fail
     */
-    private boolean helperValidator(TreeNode root, double min, double max){
+    private boolean helperValidator(TreeNode root, double min, double max) {
         if (root == null) return true;
 
         //process left and right children recursively
-        boolean isLeft = helperValidator (root.left, min, root.val);
-        boolean isRight = helperValidator (root.right, root.val, max);
+        boolean isLeft = helperValidator(root.left, min, root.val);
+        boolean isRight = helperValidator(root.right, root.val, max);
         if (!isLeft || !isRight) return false;
 
 
@@ -409,5 +407,73 @@ public class Core_LC_Tree {
     */
 
 
+    //******************//
+    //116. Populating Next Right Pointers in Each Node
+    //https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
+    //******************//
+
+    public Node connectWithNextPointer(Node root) {
+
+        //Solving using a queue
+
+        /*
+        if (root == null) return null;
+
+        Deque<Node> queue = new ArrayDeque<>();
+        queue.offer(root);
+
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            Node next = null;
+            for (int i = 0; i< size; i++){
+                Node n = queue.poll();
+                n.next = next;
+                next = n;
+                //Order important here, right first since
+                //right most will have null as next
+                if (n.right != null) queue.offer(n.right);
+                if (n.left != null) queue.offer(n.left);
+            }
+        }
+        return root;
+         */
+
+        //Solving without using an explicit queue
+        //and using the perfect binary tree property
+        if (root == null) {
+            return root;
+        }
+
+        // Start with the root node. There are no next pointers
+        // that need to be set up on the first level
+        Node leftmost = root;
+
+        // Once we reach the final level, we are done
+        while (leftmost.left != null) {
+
+            // Iterate the "linked list" starting from the head
+            // node and using the next pointers, establish the
+            // corresponding links for the next level
+            Node head = leftmost;
+
+            while (head != null) {
+
+                // CONNECTION 1
+                head.left.next = head.right;
+
+                // CONNECTION 2
+                if (head.next != null) {
+                    head.right.next = head.next.left;
+                }
+
+                // Progress along the list (nodes on the current level)
+                head = head.next;
+            }
+
+            // Move onto the next level
+            leftmost = leftmost.left;
+        }
+        return root;
+    }
 
 }
