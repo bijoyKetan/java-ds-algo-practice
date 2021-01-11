@@ -13,6 +13,13 @@ public class MergeSort {
         System.out.println("Sorted result: " + Arrays.toString(mergeSort(c)));
     }
 
+    /*
+    Approach:
+        - Divide the array inti halves until 1 item in array
+        - The single item arrays are, by default, sorted
+        - Merge two sorted arrays at a time
+        - Continue till entire array is sorted
+     */
     public static int[] mergeSort(int[] arr) {
         //base case when the array is of length 1 or 0
         if (arr.length <= 1) return arr;
