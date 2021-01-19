@@ -32,6 +32,9 @@ public class StringCore {
         String.valueOf(arr); // "love"
         new String(arr); // "love"
         Arrays.toString(arr); //[l, o, v, e]
+        //char[] to subString -> String(charArr, start, length)
+        new String(arr, 1, 3);
+        //"ove"
 
         // *** REPLACEMENT *** //
         String sentence = "It's a man, it's a plane, it's superman.";
