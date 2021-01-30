@@ -8,24 +8,25 @@ public class Core_LC221_Maximal_Square {
     public int maximalSquare(char[][] matrix) {
         int[] dp = new int[matrix[0].length + 1];
 
-        int maxLen = 0;
-        int prev = 0;
-        //temp to held diagLeft item
-        int temp;
+        int maxLen = 0; //global max
+        int diag; //diagonal value
+        int nextDiag; //temp to hold next diagLeft item
+        //Curr item before change is the next diag item
 
-        for (int row = 1; row <= matrix.length; row++) {
-            for (int col = 1; col <= matrix[0].length; col++) {
-                temp = dp[col];
+        for (int r = 1; r <= matrix.length; r++) {
+            diag = 0;//resetting diag when new row
+            for (int c = 1; c <= matrix[0].length; c++) {
+                nextDiag = dp[c];//save curr value to be used as next diagonal val
 
-                //dp (i) = min( left, up, diagLeft)
-                if (matrix[row - 1][col - 1] == '1') {
-                    dp[col] = Math.min(Math.min(dp[col - 1], dp[col]), prev) + 1;
+                if (matrix[r - 1][c - 1] == '1') {
+                    //dp (i) = min( left, up, diag) + 1
+                    dp[c] = Math.min(Math.min(dp[c - 1], dp[c]), diag) + 1;
                 } else {
                     //if curr item == 0 then set len = 0
-                    dp[col] = 0;
+                    dp[c] = 0;
                 }
-                maxLen = Math.max(maxLen, dp[col]);
-                prev = temp;
+                maxLen = Math.max(maxLen, dp[c]);
+                diag = nextDiag;
             }
         }
         return maxLen * maxLen;
