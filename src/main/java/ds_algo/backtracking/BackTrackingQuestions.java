@@ -128,4 +128,46 @@ public class BackTrackingQuestions {
     void combinationSum2Test() {
         System.out.println(combinationSum2(new int[]{2, 5, 2, 1, 2}, 5)); //[[1, 2, 2], [5]]
     }
+
+
+    /////////////////////////////////////////////////////////////////////
+
+    /*
+    216. Combination Sum III
+    Find all valid combinations of k numbers that sum up to n such that the following conditions are true:
+    Only numbers 1 through 9 are used.
+    Each number is used at most once.
+    Input: k = 3, n = 7
+    Output: [[1,2,4]]
+    */
+
+    public static List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> innerList = new ArrayList<>();
+        helper(k, n, 1, result, innerList);
+        return result;
+    }
+
+    private static void helper(int k, int n, int start, List<List<Integer>> result, List<Integer> innerList) {
+        if (n < 0 || innerList.size() > k) return;
+
+        else if (n == 0 && innerList.size() == k) {
+            result.add(new ArrayList<>(innerList));
+            return;
+        }
+
+        for (int i = start; i <= 9; i++) {
+            innerList.add(i);
+            //Note: k not changing since innerList gets compared to that
+            helper(k, n - i, i + 1, result, innerList);
+            innerList.remove(innerList.size() - 1);
+        }
+    }
+
+
+    @Test
+    void combinationSum3Test() {
+        System.out.println(combinationSum3(3, 9)); //[[1,2,6],[1,3,5],[2,3,4]]
+    }
+
 }
