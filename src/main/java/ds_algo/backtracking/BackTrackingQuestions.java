@@ -233,7 +233,7 @@ public class BackTrackingQuestions {
 
         //Combinations - combinations of unused items from this item forward
         for (int i = index; i < nums.length; i++) {
-            helper(nums, target - nums[i], i , result);
+            helper(nums, target - nums[i], i , result); // i because current item can be used to reach target 4
         }
     }
 
@@ -275,6 +275,33 @@ public class BackTrackingQuestions {
         List<List<Integer>> result = subsets(input);
         for (List<Integer> l : result) {
             System.out.println(l.toString());
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////
+    /*
+    90. Subsets II
+    Given an integer array nums that may contain duplicates, return all possible subsets (the power set).
+    The solution set must not contain duplicate subsets. Return the solution in any order.
+    Input: nums = [1,2,2]  Output: [[],[1],[1,2],[1,2,2],[2],[2,2]]
+    */
+    public List<List<Integer>> powerSetWithDuplicate(int[] nums) {
+        Arrays.sort(nums);// sorting for handling duplicates
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> innerList = new ArrayList<>(); //innerList that maintains state of path
+        helper(nums, result, innerList, 0);
+        return result;
+    }
+
+    private void helper(int[] nums, List<List<Integer>> result, List<Integer> innerList, int index) {
+        if (index > nums.length) return; // base case
+        result.add(new ArrayList<>(innerList)); //as we traverse, add the path to result
+
+        for (int i = index; i< nums.length; i++){
+            if (i > index && nums[i] == nums[i-1]) continue; //processing duplicates
+            innerList.add(nums[i]);
+            helper(nums, result, innerList, i +1); // i + 1 because same item can't be reused
+            innerList.remove(innerList.size() -1 );
         }
     }
 
