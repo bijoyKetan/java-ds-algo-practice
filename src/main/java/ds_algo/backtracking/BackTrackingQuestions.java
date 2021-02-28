@@ -69,7 +69,7 @@ public class BackTrackingQuestions {
 
         //successful result
         else if (target == 0) {
-            result.add(new ArrayList(innerList));
+            result.add(new ArrayList<>(innerList));
             return;
         }
 
@@ -164,10 +164,86 @@ public class BackTrackingQuestions {
         }
     }
 
-
     @Test
     void combinationSum3Test() {
         System.out.println(combinationSum3(3, 9)); //[[1,2,6],[1,3,5],[2,3,4]]
+    }
+
+    /////////////////////////////////////////////////////////////////////
+
+      /*
+      377. Combination Sum IV
+      Given an integer array with all positive numbers and no duplicates,
+      find the number of possible combinations that add up to a positive integer target.
+      */
+
+    // *** NOTE *** //
+    /*
+    correct dp definition should be dp[i][j]="number of ways to get sum 'j' using 'first i' coins".
+    Now when we try to traverse the 2-d array row-wise by keeping only previous row array(to reduce space complexity),
+    we preserve the above dp definition as dp[j]="number of ways to get sum 'j' using 'previous /first i coins' "
+    but when we try to traverse the 2-d array column-wise by keeping only the previous column, the meaning of dp array
+    changes to dp[j]="number of ways to get sum 'j' using 'all' coins".
+    */
+
+    //Number of permutations using dp
+    public int permutationSum(int[] nums, int target) {
+        Arrays.sort(nums); //Optimization
+        int[] dp = new int[target + 1];
+        dp[0] = 1;
+        for (int r = 1; r <= target; r++) {
+            for (int num : nums) {
+                if (r >= num) dp[r] += dp[r - num];
+                else break; //early termination as rest of nums are bigger than target
+            }
+        }
+        return dp[target];
+    }
+
+    //Number of permutations using dp
+    public int combSum(int[] nums, int target) {
+        int[] dp = new int[target + 1];
+        dp[0] = 1;
+        Arrays.sort(nums);//Optimization
+        for (int num : nums) {
+            for (int c = num; c <= target; c++) {
+                dp[c] = dp[c] + dp[c - num];
+            }
+        }
+        return dp[target];
+    }
+
+    //Permutations recursive
+    public int permNCombRecursive(int[] nums, int target) {
+        int[] result = new int[1];
+        helper(nums, target, 0, result);
+        return result[0];
+    }
+
+    private void helper(int[] nums, int target, int index, int[] result) {
+        if (target == 0) {
+            result[0]++;
+            return;
+        } else if (target < 0) return;
+
+        //Permutation - trying all options with current item
+//        for (int i = 0; i < nums.length; i++) {
+//            helper(nums, target - nums[i], i, result);
+//        }
+
+        //Combinations - combinations of unused items from this item forward
+        for (int i = index; i < nums.length; i++) {
+            helper(nums, target - nums[i], i , result);
+        }
+    }
+
+
+
+    @Test
+    void combinationSum4Test() {
+        System.out.println("Permutations: " + permutationSum(new int[]{1, 2, 3}, 4)); //7
+        System.out.println("Combinations: " + combSum(new int[]{1, 2, 3}, 4)); //4
+        System.out.println("Permutations & Combination Recursive: " + permNCombRecursive(new int[]{1, 2, 3}, 4)); //7 & 4
     }
 
 }
