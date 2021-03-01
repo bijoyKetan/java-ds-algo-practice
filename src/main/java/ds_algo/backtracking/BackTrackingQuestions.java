@@ -237,10 +237,33 @@ public class BackTrackingQuestions {
         }
     }
 
+    //TODO - Complete with return type int
+//    //Permutations recursive
+//    public int permNCombRecursive(int[] nums, int target) {
+//        return helper(nums, target, 0, result);
+//    }
+//
+//    private void helper(int[] nums, int target, int index, int[] result) {
+//        if (target == 0) {
+//            result[0]++;
+//            return;
+//        } else if (target < 0) return;
+//
+//        //Permutation - trying all options with current item
+////        for (int i = 0; i < nums.length; i++) {
+////            helper(nums, target - nums[i], i, result);
+////        }
+//
+//        //Combinations - combinations of unused items from this item forward
+//        for (int i = index; i < nums.length; i++) {
+//            helper(nums, target - nums[i], i , result); // i because current item can be used to reach target 4
+//        }
+//    }
+
     @Test
     void combinationSum4Test() {
-        System.out.println("Permutations: " + permutationSum(new int[]{1, 2, 3}, 4)); //7
-        System.out.println("Combinations: " + combSum(new int[]{1, 2, 3}, 4)); //4
+//        System.out.println("Permutations: " + permutationSum(new int[]{1, 2, 3}, 4)); //7
+//        System.out.println("Combinations: " + combSum(new int[]{1, 2, 3}, 4)); //4
         System.out.println("Permutations & Combination Recursive: " + permNCombRecursive(new int[]{1, 2, 3}, 4)); //7 & 4
     }
 
@@ -297,12 +320,60 @@ public class BackTrackingQuestions {
         if (index > nums.length) return; // base case
         result.add(new ArrayList<>(innerList)); //as we traverse, add the path to result
 
-        for (int i = index; i< nums.length; i++){
-            if (i > index && nums[i] == nums[i-1]) continue; //processing duplicates
+        for (int i = index; i < nums.length; i++) {
+            if (i > index && nums[i] == nums[i - 1]) continue; //processing duplicates
             innerList.add(nums[i]);
-            helper(nums, result, innerList, i +1); // i + 1 because same item can't be reused
-            innerList.remove(innerList.size() -1 );
+            helper(nums, result, innerList, i + 1); // i + 1 because same item can't be reused
+            innerList.remove(innerList.size() - 1); //backtracking
         }
     }
+
+    @Test
+    void powerSetWithDuplicateTest(){
+        int[] input = new int[]{1, 2, 2};
+        List<List<Integer>> result = powerSetWithDuplicate(input);
+        for (List<Integer> l : result) System.out.println(l.toString());
+    }
+
+
+    /////////////////////////////////////////////////////////////////////
+    /*
+    46. Permutations
+    Given an array nums of distinct integers, return all the possible permutations.
+    Input: nums = [1,2,3]
+    Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+    */
+    public static List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> innerList = new ArrayList<>();
+        Set<Integer> visited = new HashSet<>();//Set to track if an item has been visited
+        helper(nums, 0, result, innerList, visited);
+        return result;
+    }
+
+    private static void helper(int[] nums, int index, List<List<Integer>> result, List<Integer> innerList, Set<Integer> visited) {
+        if (index > nums.length) return;
+        else if (innerList.size() == nums.length) {
+            result.add(new ArrayList<>(innerList));
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (visited.contains(nums[i])) continue;
+            visited.add(nums[i]);
+            innerList.add(nums[i]);
+            helper(nums, i, result, innerList, visited);
+            innerList.remove(innerList.size() - 1);
+            visited.remove(nums[i]);
+        }
+    }
+
+    @Test
+    void permuteTest() {
+        int[] input = new int[]{1, 2, 3};
+        List<List<Integer>> result = permute(input);
+        for (List<Integer> l : result) {
+            System.out.println(l.toString());
+        }
+    }
+
 
 }
