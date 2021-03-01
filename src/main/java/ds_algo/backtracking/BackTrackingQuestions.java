@@ -343,7 +343,7 @@ public class BackTrackingQuestions {
     Input: nums = [1,2,3]
     Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
     */
-    public static List<List<Integer>> permute(int[] nums) {
+    public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
         List<Integer> innerList = new ArrayList<>();
         Set<Integer> visited = new HashSet<>();//Set to track if an item has been visited
@@ -351,10 +351,11 @@ public class BackTrackingQuestions {
         return result;
     }
 
-    private static void helper(int[] nums, int index, List<List<Integer>> result, List<Integer> innerList, Set<Integer> visited) {
+    private void helper(int[] nums, int index, List<List<Integer>> result, List<Integer> innerList, Set<Integer> visited) {
         if (index > nums.length) return;
         else if (innerList.size() == nums.length) {
             result.add(new ArrayList<>(innerList));
+            return;
         }
         for (int i = 0; i < nums.length; i++) {
             if (visited.contains(nums[i])) continue;
@@ -376,4 +377,51 @@ public class BackTrackingQuestions {
     }
 
 
+    /////////////////////////////////////////////////////////////////////
+    /*
+    47. Permutations II
+    Given a collection of numbers, nums, that might contain duplicates,
+    return all possible unique permutations in any order.
+    */
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> result = new ArrayList<>();
+        Set<Integer> set = new HashSet<>();
+        List<Integer> innerList = new ArrayList<>();
+        helper(nums, result, innerList, set, 0);
+        return result;
+    }
+
+    private void helper(int[] nums, List<List<Integer>> result, List<Integer> innerList, Set<Integer> set, int index ){
+
+        if (index > nums.length) return;
+        else if (innerList.size() == nums.length){
+            result.add(new ArrayList<>(innerList));
+            return;
+        }
+
+        for (int i = 0; i < nums.length; i++){
+            if ( set.contains(i)) continue;
+            if (i > 0 && nums[i] == nums[i-1] && !set.contains(i-1)) {
+                //to ensure 1a comes before 1b for repeated 1s
+                //so 1b, 1b valid, but 1b, 1a not valid
+                continue;
+            }
+
+            innerList.add(nums[i]);
+            set.add(i);
+            helper(nums, result, innerList, set, i+1);
+            innerList.remove(innerList.size() -1);
+            set.remove(i);
+        }
+    }
+
+    @Test
+    void permuteUniqueTest() {
+        int[] input = new int[]{1, 1, 2};
+        List<List<Integer>> result = permuteUnique(input);
+        for (List<Integer> l : result) {
+            System.out.println(l.toString());
+        }
+    }
 }
